@@ -1,3 +1,4 @@
+http://example.com/tags/index.html
 http://example.com/about/index.html
 http://example.com/2024/08/23/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/
 http://example.com/
