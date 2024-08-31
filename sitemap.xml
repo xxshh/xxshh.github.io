@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2024/08/31/my-blog/</loc>
+    
+    <lastmod>2024-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2024/08/23/HELLO%20WORLD/</loc>
+    
+    <lastmod>2024-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2024/08/31/test/</loc>
+    
+    <lastmod>2024-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2024/08/31/blog/my-blog/</loc>
+    
+    <lastmod>2024-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2024/08/31/blog/%E6%AC%A2%E8%BF%8E/</loc>
+    
+    <lastmod>2024-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/index.html</loc>
     
     <lastmod>2024-08-31</lastmod>
@@ -20,9 +65,18 @@
   </url>
   
   <url>
-    <loc>http://example.com/2024/08/23/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://example.com/2024/08/31/Obsidian%20Vault/BUUCTF/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2024-08-23</lastmod>
+    <lastmod>2024-08-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2024/08/31/Obsidian%20Vault/app%E6%8E%A8%E5%B9%BF/Thegreenwhale%E4%B8%8B%E8%BD%BD%E6%95%99%E7%A8%8B/</loc>
+    
+    <lastmod>2024-08-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
