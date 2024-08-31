@@ -1,10 +1,5 @@
-http://example.com/2024/08/31/my-blog/
-http://example.com/2024/08/23/HELLO%20WORLD/
-http://example.com/2024/08/31/test/
-http://example.com/2024/08/31/blog/my-blog/
-http://example.com/2024/08/31/blog/%E6%AC%A2%E8%BF%8E/
+http://example.com/2024/08/31/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/
+http://example.com/2024/08/31/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%951/
 http://example.com/tags/index.html
 http://example.com/about/index.html
-http://example.com/2024/08/31/Obsidian%20Vault/BUUCTF/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/
-http://example.com/2024/08/31/Obsidian%20Vault/app%E6%8E%A8%E5%B9%BF/Thegreenwhale%E4%B8%8B%E8%BD%BD%E6%95%99%E7%A8%8B/
 http://example.com/
