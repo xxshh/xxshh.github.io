@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>爬虫：获取ins指定用户的粉丝数 | </title><meta name="author" content="xxshh"><meta name="copyright" content="xxshh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="爬虫：获取ins指定用户的粉丝数"><meta name="application-name" content="爬虫：获取ins指定用户的粉丝数"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="爬虫：获取ins指定用户的粉丝数"><meta property="og:url" content="http://example.com/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/index.html"><meta property="og:site_name" content=""><meta property="og:description" content="操作流程1.分析网页URL 浏览器F12进入开发者模式，点击Network—&amp;gt;XHR或JS，或者burpsuite抓包，分析目标数据所在的真实URL。   2.模拟请求网页数据2.1 HTTP 消息结构 HTTP 消息是客户端和服务器之间通信的基础，它们由一系列的文本行组成，遵循特定的格式和结"><meta property="og:locale" content="zn-CN"><meta property="og:image" content="https://xxshh.github.io/images/Avatar.jpg"><meta property="article:author" content="xxshh"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xxshh.github.io/images/Avatar.jpg"><meta name="description" content="操作流程1.分析网页URL 浏览器F12进入开发者模式，点击Network—&amp;gt;XHR或JS，或者burpsuite抓包，分析目标数据所在的真实URL。   2.模拟请求网页数据2.1 HTTP 消息结构 HTTP 消息是客户端和服务器之间通信的基础，它们由一系列的文本行组成，遵循特定的格式和结"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xxshh","link":"链接: ","source":"来源: ","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '',
+  title: '爬虫：获取ins指定用户的粉丝数',
+  postAI: '',
+  pageFillDescription: '操作流程, 1.分析网页URL, 2.模拟请求网页数据, 2.1 HTTP 消息结构, 2.1.1 客户端请求消息, 2.1.2 服务器请求消息, 2.2 定制请求头, 3.获取数据, 过程中遇到的问题, 1.登录状态时无法有效模拟请求, 2.如何远程连接服务器, 3.Error：429, 4.爬虫效率较低, 5.进程killed, 代码实现操作流程分析网页浏览器进入开发者模式点击或或者抓包分析目标数据所在的真实模拟请求网页数据消息结构消息是客户端和服务器之间通信的基础它们由一系列的文本行组成遵循特定的格式和结构消息分为两种类型请求消息和响应消息客户端请求消息请求行请求头部空行和请求数据请求报文的一般格式请求行请求方法等请求请求的资源路径通常包括主机名端口号如果非默认路径和查询字符串版本如或请求行的格式示例请求头在模拟请求时如果不设置请求头很容易被网站发现是爬虫脚本从而对这种模拟请求进行拒绝使用关键字参数以一个字符串字典来提供这些参数空行请求头和请求体之间的分隔符表示请求头的结束请求体可选在某些类型的请求如和中请求体包含要发送给服务器的数据服务器请求消息状态行消息报头空行和响应正文状态行版本与请求消息中的版本相匹配状态码三位数表示请求的处理结果信息性状态码表示接收的请求正在处理成功状态码表示请求正常处理完毕重定向状态码需要后续操作才能完成这一请求客户端错误状态码表示请求包含语法错误或无法完成服务器错误状态码服务器在处理请求的过程中发生了错误状态信息状态码的简短描述状态行的格式示例响应头包含了服务器环境信息响应体的大小服务器支持的压缩类型等空行响应头和响应体之间的分隔符表示响应头的结束响应体可选包含服务器返回的数据如请求的网页内容图片数据等定制请求头获取数据过程中遇到的问题登录状态时无法有效模拟请求经大神指点发现登录状态和不登录状态下用户粉丝数所在的不同请求方法也不同因此选择退出登录使用不登录状态下的请求如何远程连接服务器任务是获取万个用户的粉丝数在笔记本上跑代码效率太低因此申请了一台服务器之前只接触过用向日葵远程操控服务器因此在搜索资料后我只进行了远程服务器与的连接后经大神指点下载了远程操作方便又快捷除此之外通过命令让服务器在后台运行实现本机自由因此需要走代理拿到以上代理设置如下代理适用于网络请求而代理支持更多协议和应用场景如邮件等每次请求时从代理池中随机选择一个代理服务器使用相应的协议和认证信息发起请求请求由代理服务器转发到目标服务器目标服务器的响应再通过代理服务器返回给客户端这种中转机制有效避免了被封禁并且可以通过多次轮换代理来模拟多个客户端的行为爬虫效率较低由于数据规模较大要提升爬虫效率可以使用多线程典型的应用场景包括密集型任务如文件读写网络通信等并发处理同时处理多个用户请求异步编程利用多线程进行非阻塞的异步操作的模块简化了多线程编程以下是一个简单的多线程示例定义一个简单的线程任务每隔一秒打印当前线程的名字和计数器的值创建两个线程启动线程等待线程结束在多线程编程中线程之间可能需要进行数据交换或通信使用模块实现定义一个线程安全的队列定义生产者任务定义消费者任务创建生产者和消费者线程启动线程等待生产者线程结束在队列中放入结束标志通知消费者线程结束等待消费者线程结束多线程编程需要注意线程安全性防止多个线程同时修改共享数据提供了一些线程安全的数据结构如等用于解决多线程并发访问共享资源的问题进程分析原因可能是该进程超出了资源限制设置最大强制队列大小保持在一定范围内代码实现避免输出不必要的安全警告信息用户名处理函数去掉符号创建带重试机制的请求会话获取粉丝数量线程工作函数读取用户名并创建线程处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-04 11:37:35',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://xxshh.github.io/images/Avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title"></div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">爬虫：获取ins指定用户的粉丝数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-09-02T05:35:35.000Z" title="发表于 2024-09-02 13:35:35">2024-09-02</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-09-04T03:37:35.823Z" title="更新于 2024-09-04 11:37:35">2024-09-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/"><header><h1 id="CrawlerTitle" itemprop="name headline">爬虫：获取ins指定用户的粉丝数</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xxshh</span><time itemprop="dateCreated datePublished" datetime="2024-09-02T05:35:35.000Z" title="发表于 2024-09-02 13:35:35">2024-09-02</time><time itemprop="dateCreated datePublished" datetime="2024-09-04T03:37:35.823Z" title="更新于 2024-09-04 11:37:35">2024-09-04</time></header><h1 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h1><h3 id="1-分析网页URL"><a href="#1-分析网页URL" class="headerlink" title="1.分析网页URL"></a>1.分析网页URL</h3><p> 浏览器F12进入开发者模式，点击Network—&gt;XHR或JS，或者burpsuite抓包，分析目标数据所在的真实URL。<br> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903150411.png"><br> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903150651.png"></p>
+<h3 id="2-模拟请求网页数据"><a href="#2-模拟请求网页数据" class="headerlink" title="2.模拟请求网页数据"></a>2.模拟请求网页数据</h3><h4 id="2-1-HTTP-消息结构"><a href="#2-1-HTTP-消息结构" class="headerlink" title="2.1 HTTP 消息结构"></a>2.1 HTTP 消息结构</h4><p> HTTP 消息是客户端和服务器之间通信的基础，它们由一系列的文本行组成，遵循特定的格式和结构。<br> HTTP消息分为两种类型：请求消息和响应消息。</p>
+<h5 id="2-1-1-客户端请求消息"><a href="#2-1-1-客户端请求消息" class="headerlink" title="2.1.1 客户端请求消息"></a>2.1.1 客户端请求消息</h5><p> <strong>请求行、请求头部、空行和请求数据</strong><br> 请求报文的一般格式：<br> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903153233.png"></p>
+<ul>
+<li><strong>请求行</strong><ul>
+<li>请求方法：GET、POST、PUT、DELETE等。</li>
+<li>请求URL：请求的资源路径，通常包括主机名、端口号（如果非默认）、路径和查询字符串。</li>
+<li>HTTP 版本：如 HTTP&#x2F;1.1 或 HTTP&#x2F;2<br> 请求行的格式示例：<code>GET /index.html HTTP/1.1</code></li>
+</ul>
+</li>
+<li><strong>请求头</strong><br>  在模拟请求时，如果不设置请求头，很容易被网站发现是爬虫脚本，从而对这种模拟请求进行拒绝。使用 <code>params</code> 关键字参数，以一个字符串字典来提供这些参数。<br>  <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903154810.png"></li>
+<li><strong>空行</strong><br>  请求头和请求体之间的分隔符，表示请求头的结束。</li>
+<li><strong>请求体</strong>（可选）<br>  在某些类型的HTTP请求（如 POST 和 PUT）中，请求体包含要发送给服务器的数据。</li>
+</ul>
+<h5 id="2-1-2-服务器请求消息"><a href="#2-1-2-服务器请求消息" class="headerlink" title="2.1.2 服务器请求消息"></a>2.1.2 服务器请求消息</h5><p><strong>状态行、消息报头、空行和响应正文</strong><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903155116.png"></p>
+<ul>
+<li><strong>状态行</strong><ul>
+<li><strong>HTTP 版本</strong>：与请求消息中的版本相匹配。</li>
+<li><strong>状态码</strong>：三位数，表示请求的处理结果。<ul>
+<li><strong>1xx（信息性状态码）</strong>：表示接收的请求正在处理。</li>
+<li><strong>2xx（成功状态码）</strong>：表示请求正常处理完毕。</li>
+<li><strong>3xx（重定向状态码）</strong>：需要后续操作才能完成这一请求。</li>
+<li><strong>4xx（客户端错误状态码）</strong>：表示请求包含语法错误或无法完成。</li>
+<li><strong>5xx（服务器错误状态码）</strong>：服务器在处理请求的过程中发生了错误。</li>
+</ul>
+</li>
+<li><strong>状态信息</strong>：状态码的简短描述。<br>  状态行的格式示例：<code>HTTP/1.1 200 OK</code></li>
+</ul>
+</li>
+<li><strong>响应头</strong><ul>
+<li>包含了服务器环境信息、响应体的大小、服务器支持的压缩类型等。</li>
+</ul>
+</li>
+<li><strong>空行</strong><ul>
+<li>响应头和响应体之间的分隔符，表示响应头的结束。</li>
+</ul>
+</li>
+<li><strong>响应体</strong>（可选）<ul>
+<li>包含服务器返回的数据，如请求的网页内容、图片、JSON数据等</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-定制请求头"><a href="#2-2-定制请求头" class="headerlink" title="2.2 定制请求头"></a>2.2 定制请求头</h4><figure class="highlight swift"><table><tr><td class="code"><pre><code class="hljs swift">headers <span class="hljs-operator">=</span> &#123;<br>        <span class="hljs-string">&quot;Host&quot;</span>: <span class="hljs-string">&quot;www.instagram.com&quot;</span>,<br>        <span class="hljs-string">&quot;Connection&quot;</span>: <span class="hljs-string">&quot;close&quot;</span>,<br>        <span class="hljs-string">&quot;sec-ch-ua-mobile&quot;</span>: <span class="hljs-string">&quot;?0&quot;</span>,<br>        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36&quot;</span>,<br>        <span class="hljs-string">&quot;Accept&quot;</span>: <span class="hljs-string">&quot;*/*&quot;</span>,<br>        <span class="hljs-string">&quot;sec-ch-ua-platform-version&quot;</span>: <span class="hljs-string">&quot;<span class="hljs-subst">\&quot;</span>12.2.1<span class="hljs-subst">\&quot;</span>&quot;</span>,<br>        <span class="hljs-string">&quot;X-Requested-With&quot;</span>: <span class="hljs-string">&quot;XMLHttpRequest&quot;</span>,<br>        <span class="hljs-string">&quot;X-ASBD-ID&quot;</span>: <span class="hljs-string">&quot;129477&quot;</span>,<br>        <span class="hljs-string">&quot;X-CSRFToken&quot;</span>: <span class="hljs-string">&quot;aMFPLyFGuRw9PXGLAg8CXx&quot;</span>,<br>        <span class="hljs-string">&quot;X-IG-App-ID&quot;</span>: <span class="hljs-string">&quot;936619743392459&quot;</span>,<br>        <span class="hljs-string">&quot;Referer&quot;</span>: f<span class="hljs-string">&quot;https://www.instagram.com/&#123;sanitized_username&#125;/&quot;</span>,<br>        <span class="hljs-string">&quot;Accept-Encoding&quot;</span>: <span class="hljs-string">&quot;gzip, deflate&quot;</span>,<br>        <span class="hljs-string">&quot;Accept-Language&quot;</span>: <span class="hljs-string">&quot;zh-CN,zh;q=0.9,en;q=0.8&quot;</span><br>    &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="3-获取数据"><a href="#3-获取数据" class="headerlink" title="3.获取数据"></a>3.获取数据</h3><figure class="highlight prolog"><table><tr><td class="code"><pre><code class="hljs prolog">if <span class="hljs-string">&#x27;data&#x27;</span> in data and <span class="hljs-string">&#x27;user&#x27;</span> in data[<span class="hljs-string">&#x27;data&#x27;</span>] and <span class="hljs-string">&#x27;edge_followed_by&#x27;</span> in data[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;user&#x27;</span>]:<br>    follower_count = data[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;user&#x27;</span>][<span class="hljs-string">&#x27;edge_followed_by&#x27;</span>][<span class="hljs-string">&#x27;count&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<h1 id="过程中遇到的问题"><a href="#过程中遇到的问题" class="headerlink" title="过程中遇到的问题"></a>过程中遇到的问题</h1><h2 id="1-登录状态时，无法有效模拟请求"><a href="#1-登录状态时，无法有效模拟请求" class="headerlink" title="1.登录状态时，无法有效模拟请求"></a>1.登录状态时，无法有效模拟请求</h2><p>经大神指点，发现登录状态和不登录状态下用户粉丝数所在的URL不同，请求方法也不同。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903164507.png"><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903164621.png"></p>
+<p>因此选择退出登录，使用不登录状态下的请求URL。</p>
+<h2 id="2-如何远程连接服务器"><a href="#2-如何远程连接服务器" class="headerlink" title="2.如何远程连接服务器"></a>2.如何远程连接服务器</h2><p>任务是获取100万个用户的粉丝数，在笔记本上跑代码效率太低，因此申请了一台服务器。之前只接触过用向日葵远程操控服务器，因此在搜索资料后，我只进行了远程服务器与pycharm的连接。后经大神指点，下载了Termius，远程操作方便又快捷。除此之外，通过nohup命令让服务器在后台运行，实现本机自由。</p>
+<h2 id="3-Error：429"><a href="#3-Error：429" class="headerlink" title="3.Error：429"></a>3.Error：429</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/e820768b136e9e76f303c67101b5b34.png"><br>因此需要走代理。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903170424.png"><br>拿到以上代理，设置如下：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020240903170956.png"><br>HTTP&#x2F;HTTPS代理适用于网络请求，而SOCKS5代理支持更多协议和应用场景（如邮件、FTP等）<br>每次请求时，从代理池中随机选择一个代理服务器，使用相应的协议和认证信息发起请求。请求由代理服务器转发到目标服务器，目标服务器的响应再通过代理服务器返回给客户端。这种中转机制有效避免了IP被封禁，并且可以通过多次轮换代理来模拟多个客户端的行为。</p>
+<h2 id="4-爬虫效率较低"><a href="#4-爬虫效率较低" class="headerlink" title="4.爬虫效率较低"></a>4.爬虫效率较低</h2><p>由于数据规模较大，要提升爬虫效率，可以使用多线程。典型的应用场景包括：</p>
+<ul>
+<li>I&#x2F;O密集型任务：如文件读写、网络通信等。</li>
+<li>并发处理：同时处理多个用户请求。</li>
+<li>异步编程：利用多线程进行非阻塞的异步操作。<br>Python的<code>threading</code>模块简化了多线程编程。以下是一个简单的多线程示例：<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">import threading<br>import time<br><br><span class="hljs-comment"># 定义一个简单的线程任务:每隔一秒打印当前线程的名字和计数器的值</span><br>def thread_task(): <br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(5): <br>		time.sleep(1) <br>		<span class="hljs-built_in">print</span>(f<span class="hljs-string">&quot;Thread &#123;threading.current_thread().name&#125;: Count &#123;i&#125;&quot;</span>) <br><br><span class="hljs-comment"># 创建两个线程 </span><br>thread1 = threading.Thread(<span class="hljs-attribute">target</span>=thread_task, <span class="hljs-attribute">name</span>=<span class="hljs-string">&#x27;Thread-1&#x27;</span>) <br>thread2 = threading.Thread(<span class="hljs-attribute">target</span>=thread_task, <span class="hljs-attribute">name</span>=<span class="hljs-string">&#x27;Thread-2&#x27;</span>) <br><br><span class="hljs-comment"># 启动线程 </span><br>thread1.start() <br>thread2.start() <br><br><span class="hljs-comment"># 等待线程结束 </span><br>thread1.join() <br>thread2.join()<br></code></pre></td></tr></table></figure>
+在多线程编程中，线程之间可能需要进行数据交换或通信。使用<code>queue</code>模块实现。<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 定义一个线程安全的队列 </span><br>shared_queue = queue.Queue()<br><br><span class="hljs-comment"># 定义生产者任务</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">producer</span>(): <br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>): <br>		shared_queue.put(i) <br>		time.sleep(<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 定义消费者任务</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">consumer</span>(): <br>	<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>: <br>		data = shared_queue.get() <br>		<span class="hljs-keyword">if</span> data <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <br>			<span class="hljs-keyword">break</span><br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Consumed: <span class="hljs-subst">&#123;data&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 创建生产者和消费者线程 </span><br>producer_thread = threading.Thread(target=producer) <br>consumer_thread = threading.Thread(target=consumer)<br><br><span class="hljs-comment"># 启动线程 </span><br>producer_thread.start() consumer_thread.start() <br><br><span class="hljs-comment"># 等待生产者线程结束 </span><br>producer_thread.join() <br><br><span class="hljs-comment"># 在队列中放入结束标志，通知消费者线程结束 </span><br>shared_queue.put(<span class="hljs-literal">None</span>) <br><br><span class="hljs-comment"># 等待消费者线程结束 </span><br>consumer_thread.join()<br></code></pre></td></tr></table></figure>
+多线程编程需要注意线程安全性，防止多个线程同时修改共享数据。Python提供了一些线程安全的数据结构，如<code>queue</code>、<code>Lock</code>等，用于解决多线程并发访问共享资源的问题。</li>
+</ul>
+<h2 id="5-进程killed"><a href="#5-进程killed" class="headerlink" title="5.进程killed"></a>5.进程killed</h2><p>分析原因可能是该进程超出了资源限制，设置最大queue_size&#x3D;10000，强制队列大小保持在一定范围内。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8</span><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> csv<br><span class="hljs-keyword">import</span> urllib3<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">from</span> queue <span class="hljs-keyword">import</span> Queue<br><span class="hljs-keyword">from</span> requests.adapters <span class="hljs-keyword">import</span> HTTPAdapter<br><span class="hljs-keyword">from</span> requests.packages.urllib3.util.retry <span class="hljs-keyword">import</span> Retry<br><br><span class="hljs-comment"># 避免输出不必要的HTTPS安全警告信息</span><br>urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)<br><br><br><span class="hljs-comment"># 用户名处理函数:去掉`@`符号</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sanitize_username</span>(<span class="hljs-params">username</span>):<br>    <span class="hljs-keyword">if</span> username.startswith(<span class="hljs-string">&#x27;@&#x27;</span>):<br>        <span class="hljs-keyword">return</span> username.lstrip(<span class="hljs-string">&#x27;@&#x27;</span>)  <br>    <span class="hljs-keyword">elif</span> <span class="hljs-string">&#x27;@&#x27;</span> <span class="hljs-keyword">in</span> username:<br>        <span class="hljs-keyword">return</span> username.split(<span class="hljs-string">&#x27;@&#x27;</span>)[<span class="hljs-number">0</span>]  <br>    <span class="hljs-keyword">return</span> username<br><br><br><span class="hljs-comment"># 创建带重试机制的请求会话</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_session_with_retries</span>():<br>    session = requests.Session()<br>    retries = Retry(total=<span class="hljs-number">5</span>, backoff_factor=<span class="hljs-number">1</span>, status_forcelist=[<span class="hljs-number">429</span>, <span class="hljs-number">500</span>, <span class="hljs-number">502</span>, <span class="hljs-number">503</span>, <span class="hljs-number">504</span>])<br>    session.mount(<span class="hljs-string">&#x27;http://&#x27;</span>, HTTPAdapter(max_retries=retries))<br>    session.mount(<span class="hljs-string">&#x27;https://&#x27;</span>, HTTPAdapter(max_retries=retries))<br>    <span class="hljs-keyword">return</span> session<br><br><br><span class="hljs-comment"># 获取Instagram粉丝数量</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_instagram_follower_count</span>(<span class="hljs-params">username, proxies</span>):<br>    sanitized_username = sanitize_username(username)<br>    url = <span class="hljs-string">&quot;https://www.instagram.com/api/v1/users/web_profile_info/&quot;</span><br>    params = &#123;<br>        <span class="hljs-string">&quot;username&quot;</span>: sanitized_username<br>    &#125;<br>    <br>    headers = &#123;<br>        <span class="hljs-string">&quot;Host&quot;</span>: <span class="hljs-string">&quot;www.instagram.com&quot;</span>,<br>        <span class="hljs-string">&quot;Connection&quot;</span>: <span class="hljs-string">&quot;close&quot;</span>,<br>        <span class="hljs-string">&quot;sec-ch-ua-mobile&quot;</span>: <span class="hljs-string">&quot;?0&quot;</span>,<br>        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36&quot;</span>,<br>        <span class="hljs-string">&quot;Accept&quot;</span>: <span class="hljs-string">&quot;*/*&quot;</span>,<br>        <span class="hljs-string">&quot;sec-ch-ua-platform-version&quot;</span>: <span class="hljs-string">&quot;\&quot;12.2.1\&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;X-Requested-With&quot;</span>: <span class="hljs-string">&quot;XMLHttpRequest&quot;</span>,<br>        <span class="hljs-string">&quot;X-ASBD-ID&quot;</span>: <span class="hljs-string">&quot;129477&quot;</span>,<br>        <span class="hljs-string">&quot;X-CSRFToken&quot;</span>: <span class="hljs-string">&quot;aMFPLyFGuRw9PXGLAg8CXx&quot;</span>,<br>        <span class="hljs-string">&quot;X-IG-App-ID&quot;</span>: <span class="hljs-string">&quot;936619743392459&quot;</span>,<br>        <span class="hljs-string">&quot;Referer&quot;</span>: <span class="hljs-string">f&quot;https://www.instagram.com/<span class="hljs-subst">&#123;sanitized_username&#125;</span>/&quot;</span>,<br>        <span class="hljs-string">&quot;Accept-Encoding&quot;</span>: <span class="hljs-string">&quot;gzip, deflate&quot;</span>,<br>        <span class="hljs-string">&quot;Accept-Language&quot;</span>: <span class="hljs-string">&quot;zh-CN,zh;q=0.9,en;q=0.8&quot;</span><br>    &#125;<br>    <br>    session = create_session_with_retries()<br>    <br>    time.sleep(<span class="hljs-number">1</span>)  <br>    <br>    <span class="hljs-keyword">try</span>:<br>    <br>        response = session.get(url, headers=headers, params=params, proxies=proxies, verify=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">10</span>)<br>        <br>        <span class="hljs-keyword">if</span> response.status_code == <span class="hljs-number">200</span>:<br>            <span class="hljs-keyword">try</span>:<br>            <br>                data = response.json()<br>                <br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(data, <span class="hljs-built_in">dict</span>) <span class="hljs-keyword">and</span> data <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>                    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;data&#x27;</span> <span class="hljs-keyword">in</span> data <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;user&#x27;</span> <span class="hljs-keyword">in</span> data[<span class="hljs-string">&#x27;data&#x27;</span>] <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;edge_followed_by&#x27;</span> <span class="hljs-keyword">in</span> data[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;user&#x27;</span>]:<br>                    <br>                        follower_count = data[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;user&#x27;</span>][<span class="hljs-string">&#x27;edge_followed_by&#x27;</span>][<span class="hljs-string">&#x27;count&#x27;</span>]<br>                        <br>                        <span class="hljs-keyword">return</span> follower_count<br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>  <br>            <span class="hljs-keyword">except</span> ValueError:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>  <br>    <span class="hljs-keyword">except</span> requests.RequestException:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>  <br><br><br><span class="hljs-comment"># 线程工作函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">worker</span>(<span class="hljs-params">queue, output_file, proxies, lock</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <br>        username = queue.get()<br>        <br>        <span class="hljs-keyword">if</span> username <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">try</span>:<br>        <br>            result = get_instagram_follower_count(username, proxies)<br>            <br>            <span class="hljs-keyword">if</span> result <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <br>                <span class="hljs-keyword">with</span> lock:<br>                <br>                    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_file, mode=<span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> outfile:<br>                    <br>                        writer = csv.writer(outfile)<br>                        writer.writerow([username, result])<br>                        <br>        <span class="hljs-keyword">except</span> Exception:<br>            <span class="hljs-keyword">pass</span>  <br>        queue.task_done()<br><br><br><span class="hljs-comment"># 读取用户名并创建线程处理</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_usernames</span>(<span class="hljs-params">input_csv, output_csv, num_threads=<span class="hljs-number">4</span>, queue_size=<span class="hljs-number">10000</span></span>):<br>    queue = Queue(maxsize=queue_size)<br>    lock = threading.Lock()<br>    proxies = &#123;<br>        <span class="hljs-string">&#x27;http&#x27;</span>: <span class="hljs-string">&#x27;   &#x27;</span>,<br>        <span class="hljs-string">&#x27;https&#x27;</span>: <span class="hljs-string">&#x27;  &#x27;</span><br>    &#125;<br>    <br>    <span class="hljs-comment"># Write the header to the output CSV file</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_csv, mode=<span class="hljs-string">&#x27;w&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> outfile:<br>        writer = csv.writer(outfile)<br>        writer.writerow([<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;follower_counts&#x27;</span>]) <br>  <br>    <span class="hljs-comment"># Start threads</span><br>    threads = []<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_threads):<br>        thread = threading.Thread(target=worker, args=(queue, output_csv, proxies, lock))<br>        thread.start()<br>        threads.append(thread)<br>        <br>    <span class="hljs-comment"># Read usernames from the input CSV file and process them</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_csv, mode=<span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> infile:<br>        reader = csv.reader(infile)<br>        <span class="hljs-built_in">next</span>(reader)  <span class="hljs-comment"># Skip the header row</span><br>        <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:<br>            username = row[<span class="hljs-number">0</span>]<br>            queue.put(username)<br><br>    <span class="hljs-comment"># Stop workers</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_threads):<br>        queue.put(<span class="hljs-literal">None</span>)  <span class="hljs-comment"># Add a None for each worker to signal them to exit</span><br><br>    <span class="hljs-comment"># Wait for all threads to finish</span><br>    <span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:<br>        thread.join()<br>        <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Results have been written to <span class="hljs-subst">&#123;output_csv&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br><br>    input_csv = <span class="hljs-string">&#x27;instagram.csv&#x27;</span><br>    output_csv = <span class="hljs-string">&#x27;output.csv&#x27;</span><br>    process_usernames(input_csv, output_csv)<br></code></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">xxshh</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2024/09/02/%E7%88%AC%E8%99%AB%EF%BC%9A%E8%8E%B7%E5%8F%96ins%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E7%9A%84%E7%B2%89%E4%B8%9D%E6%95%B0/')">爬虫：获取ins指定用户的粉丝数</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank"></a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/08/31/BUUCTF%20Basic%20%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUUCTF Basic 解题记录</div></div></a></div><div class="next-post pull-right"><a href="/2024/09/03/linux%E5%91%BD%E4%BB%A4/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux命令</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">操作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E6%9E%90%E7%BD%91%E9%A1%B5URL"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.分析网页URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.模拟请求网页数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-HTTP-%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">2.1 HTTP 消息结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF"><span class="toc-number">1.0.2.1.1.</span> <span class="toc-text">2.1.1 客户端请求消息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF"><span class="toc-number">1.0.2.1.2.</span> <span class="toc-text">2.1.2 服务器请求消息</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%AE%9A%E5%88%B6%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">2.2 定制请求头</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.获取数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">过程中遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E6%97%B6%EF%BC%8C%E6%97%A0%E6%B3%95%E6%9C%89%E6%95%88%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82"><span class="toc-number">2.1.</span> <span class="toc-text">1.登录状态时，无法有效模拟请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text">2.如何远程连接服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Error%EF%BC%9A429"><span class="toc-number">2.3.</span> <span class="toc-text">3.Error：429</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87%E8%BE%83%E4%BD%8E"><span class="toc-number">2.4.</span> <span class="toc-text">4.爬虫效率较低</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%BF%9B%E7%A8%8Bkilled"><span class="toc-number">2.5.</span> <span class="toc-text">5.进程killed</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2024-11-23T11:06:56.000Z" title="发表于 2024-11-23 19:06:56">2024-11-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/22/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="基础知识">基础知识</a><time datetime="2024-11-22T08:20:16.000Z" title="发表于 2024-11-22 16:20:16">2024-11-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/20/%E5%8F%8D%E5%BC%B9SHELL/" title="反弹SHELL">反弹SHELL</a><time datetime="2024-11-20T07:12:05.000Z" title="发表于 2024-11-20 15:12:05">2024-11-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/15/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="PHP反序列化">PHP反序列化</a><time datetime="2024-11-15T07:50:36.000Z" title="发表于 2024-11-15 15:50:36">2024-11-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/12/BUUCTF-N1BOOK/" title="BUUCTF-N1BOOK">BUUCTF-N1BOOK</a><time datetime="2024-11-12T03:36:37.000Z" title="发表于 2024-11-12 11:36:37">2024-11-12</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By xxshh</div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/8/2024 22:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xxshh 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
