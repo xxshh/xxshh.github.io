@@ -163,6 +163,13 @@
   </url>
 
   
+  <url>
+    <loc>http://example.com/tags/CTF/</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
 </urlset>
