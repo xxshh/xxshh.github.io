@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-12-07T10:50:35.665Z</updated>
+  <updated>2024-12-08T10:16:17.769Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRF漏洞</title>
+    <link href="http://example.com/2024/12/07/CSRF%E6%BC%8F%E6%B4%9E/"/>
+    <id>http://example.com/2024/12/07/CSRF%E6%BC%8F%E6%B4%9E/</id>
+    <published>2024-12-07T12:16:30.000Z</published>
+    <updated>2024-12-08T10:16:17.769Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>CSRF（Cross-Site Request Forgery）跨站请求伪造，是一种利用用户在某网站的身份认证信息，通过伪造请求来执行恶意操作的攻击方式。</p><ol><li><p>受害者登录：受害者先登录一个网站（如网上银行、社交平台等），并且此时浏览器保存了该网站的登录认证信息（比如 cookie）。</p></li><li><p>攻击者构造恶意请求：攻击者构造一个恶意网页或链接，链接中包含一个目标网站的请求（如更改账户密码、转账等）。该请求看似合法，但实际上是恶意构造的。</p></li><li><p>受害者点击链接：受害者在不知情的情况下点击了攻击者诱导的链接，或访问了包含恶意请求的网页。</p></li><li><p>伪造请求被发送：由于受害者已经登录目标网站，浏览器会自动附带上该网站的 Cookie 等身份认证信息，目标网站接收到这个伪造的请求时，认为这个请求来自合法用户，从而执行了恶意操作。</p></li></ol><h1 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h1><ol><li><p>需要伪造请求数据包。</p></li><li><p>无过滤防护，或有过滤防护但可以绕过。</p></li><li><p>受害者触发 (钓鱼)。</p></li></ol><h1 id="无防护"><a href="#无防护" class="headerlink" title="无防护"></a>无防护</h1><p>演示靶场：发货 100 模板 T11 - 电子商城模板（PC）-&gt; 后台用户管理</p><p><img src="/../images/Pasted%20image%2020241208151356.png"></p><p>BurpSuite抓一个添加管理员的包：</p><p><img src="/../images/Pasted%20image%2020241208151519.png"></p><p>然后右键选择 -&gt;Engagement tools-&gt;Generate CSRF Poc-&gt;Options-&gt;Include auto-submit script</p><p>复制生成的html代码：</p><p><img src="/../images/Pasted%20image%2020241208151810.png"></p><p>将其放到攻击者网站目录：</p><p><img src="/../images/Pasted%20image%2020241208145310.png"></p><p>引诱目标人员在同一浏览器访问这个页面，即可攻击成功。</p><p><img src="/../images/Pasted%20image%2020241208151914.png"></p><p>此时在后台发现管理员已添加成功。</p><p><img src="/../images/Pasted%20image%2020241208152107.png"></p><p>若目标管理员未登录后台，或者后台 cookie 已经过期，需要重新登录，那么将无法完成攻击。</p><h1 id="有防护-Referer-同源"><a href="#有防护-Referer-同源" class="headerlink" title="有防护- Referer 同源"></a>有防护- Referer 同源</h1><p><img src="/../images/Pasted%20image%2020241208155904.png"></p><p>演示靶场：Zblog 后台用户管理</p><p><img src="/../images/Pasted%20image%2020241208160215.png"></p><p>按照上面步骤操作后，显示非法访问：<br><img src="/../images/Pasted%20image%2020241208160436.png"><br>查看网站源码，在 cmd.php 中找到了检测 referer 的函数 CheckIsRefererValid, 按住 Ctrl 点击，跳转到定义如下：</p><figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CheckHTTPRefererValid</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"> </span>&#123;<br>     <span class="hljs-keyword">global</span> <span class="hljs-variable">$bloghost</span>;<br>     <span class="hljs-variable">$referer</span> = <span class="hljs-title function_ invoke__">GetVars</span>(<span class="hljs-string">&#x27;HTTP_REFERER&#x27;</span>, <span class="hljs-string">&#x27;SERVER&#x27;</span>);  <span class="hljs-comment">// 获取请求中的referer</span><br>     <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$referer</span>) === <span class="hljs-string">&#x27;&#x27;</span>) &#123;<br>         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>     <span class="hljs-variable">$s</span> = <span class="hljs-variable">$bloghost</span>;<br>     <span class="hljs-variable">$s</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;:80/&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-variable">$s</span>);<br>     <span class="hljs-variable">$s</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;:443/&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-variable">$s</span>);<br>     <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$referer</span>, <span class="hljs-variable">$s</span>) === <span class="hljs-literal">false</span>) &#123;<br>         <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br> ​<br>     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br> &#125;<br></code></pre></td></tr></table></figure><p><strong>绕过referer匹配的策略：</strong></p><p>目标网站：<a href="http://22.22.22.22/">http://22.22.22.22/</a><br>攻击者：<a href="http://11.11.11.11/">http://11.11.11.11/</a></p><ol><li>部分匹配</li></ol><p>如上面这个 zblog 靶场的 referer 检测就是 php 的 stripos 函数，该函数 stripos () 是查找字符串在另一字符串中第一次出现的位置，并且不区分大小写的。</p><p>此时将 referer 修改为这样即可绕过检测：</p><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">11.11</span>.<span class="hljs-number">11.11</span><span class="hljs-regexp">/http:/</span><span class="hljs-regexp">/22.22.22.22/</span>add.html<br></code></pre></td></tr></table></figure><p>怎么构造这个 referer 呢？在你的网站下创建这样一个目录即可。这里讲思路，实际上实现不了这个，因为不能创建 http: &#x2F;&#x2F;这样的目录。</p><p>也可以针对不严谨的代码逻辑绕过。上面zblog 网站源码中，若 referer 为空也返回 true。有时候重新打开浏览器访问的时候就是没有 referer，所以不是代码有问题，只是逻辑不严谨。所以可以在add.html中设置referer为空。</p><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">&lt;meta <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;referrer&quot;</span> <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;no-referrer&quot;</span>&gt;<br></code></pre></td></tr></table></figure><ol start="2"><li>完全匹配</li></ol><p>只能配合文件上传漏洞（上传到目标网站目录，这时候 referer 肯定就是目标网站本身）和XSS漏洞（利用JS代码发送add.html）绕过。</p><h1 id="有防护-Token校验"><a href="#有防护-Token校验" class="headerlink" title="有防护-Token校验"></a>有防护-Token校验</h1><p><img src="/../images/Pasted%20image%2020241208172243.png"></p><p><strong>绕过策略（代码逻辑不严谨）：</strong></p><ol><li><p>将 Token 参数值复用<br>即一个 Token 可以一直使用或者使用多次。</p></li><li><p>将 Token 参数删除<br>不验证 Token 的时候。</p></li><li><p>将 Token 参数值置空<br>Token 为空的时候也可以通过验证的情况。</p></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h1&gt;&lt;p&gt;CSRF（Cross-Site Request Forgery）跨站请求伪造，是一种利用用户在某网站的身份认证信息，通过伪造请求来执行恶意操</summary>
+      
+    
+    
+    
+    
+    <category term="WEB" scheme="http://example.com/tags/WEB/"/>
+    
+  </entry>
   
   <entry>
     <title>XSS漏洞</title>
