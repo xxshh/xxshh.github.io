@@ -1,3 +1,4 @@
+http://example.com/2024/12/19/Hack-The-Box-Oopsie/
 http://example.com/2024/12/17/Hack-The-Box-Archetype/
 http://example.com/2024/12/13/Hack%20The%20Box-Responder/
 http://example.com/2024/12/14/Hack%20The%20Box-Three/
