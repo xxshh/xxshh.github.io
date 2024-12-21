@@ -1,7 +1,8 @@
+http://example.com/2024/12/21/Hack-The-Box-Cap/
+http://example.com/2024/12/17/Hack-The-Box-Archetype/
 http://example.com/2024/12/20/Hack-The-Bdox-Unified/
 http://example.com/2024/12/20/Hack-The-Box-Vaccine/
 http://example.com/2024/12/19/Hack-The-Box-Oopsie/
-http://example.com/2024/12/17/Hack-The-Box-Archetype/
 http://example.com/2024/11/22/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/
 http://example.com/2024/09/03/linux%E5%91%BD%E4%BB%A4/
 http://example.com/2024/12/13/Hack%20The%20Box-Responder/
