@@ -1,3 +1,4 @@
+http://example.com/2024/12/28/Vulnhub-SickOS1-1/
 http://example.com/2024/12/27/Vulnhub-JARBAS/
 http://example.com/2024/12/26/Vulnhub-W1R3S-1-0-1-%E8%AF%A6%E8%BF%B0%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/
 http://example.com/2024/09/03/linux%E5%91%BD%E4%BB%A4/
