@@ -1,3 +1,4 @@
+http://example.com/2025/01/01/Vulnhub-Tr0ll/
 http://example.com/2024/12/30/Vulnhub-Nullbyte/
 http://example.com/2024/11/11/BUUCTF-Web-WP2/
 http://example.com/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/
