@@ -1,3 +1,4 @@
+http://example.com/2025/01/11/Vulnhub-LAMPSecurity-CTF7/
 http://example.com/2025/01/11/Vulnhub-LAMPSecurity-CTF5/
 http://example.com/2025/01/11/CTF5/
 http://example.com/2025/01/09/Vulnhub-Prime1/
