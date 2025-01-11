@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/2025/01/11/CTF5/</loc>
-    
-    <lastmod>2025-01-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/2025/01/09/Vulnhub-Prime1/</loc>
     
     <lastmod>2025-01-09</lastmod>
